@@ -10,7 +10,7 @@ import "./RioIPTUToken.sol";
 
 contract CariocaGreenSC is Ownable {
 
-    uint256 public numRIPTUperTree;                             // Número de tokens RIPTU por cada árvore plantada
+    uint256 public numRIPTUperTree;                         // Número de tokens RIPTU por cada árvore plantada
     CariocaGreenTreeToken public cariocaGreenTreeToken;     // Referência ao SC CariocaGreenTreeToken
     RioIPTUToken public rioIPTUToken;                       // Referência ao SC RioIPTUToken
 

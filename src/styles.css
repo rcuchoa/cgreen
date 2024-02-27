@@ -113,3 +113,17 @@ inline {
     border-radius: 5px;
     margin-top: 10px;
 }
+
+.form-group {
+    display: flex;
+    align-items: center;
+  }
+  
+.form-group input {
+    flex: 1; /* Allow input to take up remaining space */
+    margin-right: 5px; /* Add some spacing between input and button */
+}
+  
+.output-area {
+    margin-top: 10px; /* Add spacing between form-group and output-area */
+}

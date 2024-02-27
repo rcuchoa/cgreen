@@ -1,0 +1,13 @@
+title Carioca Green - Transferência de Créditos de IPTU
+
+Cidadão->DAPP Carioca Green: Solicita transferência de créditos \n   de IPTU para outro cidadão
+
+DAPP Carioca Green->Carioca Green SC:     Solicita transferência de \ncréditos para a carteira AMIGO
+
+Carioca Green SC->Rio IPTU FT SC: Solicita transferência \n.  de tokens RIPTU
+
+Rio IPTU FT SC-->Carioca Green SC: Confirma transação
+
+Carioca Green SC-->DAPP Carioca Green: Confirma transação
+
+DAPP Carioca Green-->Cidadão: Confirma transferência de créditos de IPTU

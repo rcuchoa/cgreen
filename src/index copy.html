@@ -21,9 +21,9 @@
 
     <main>
 
-        <section class="form-group">
+        <section>
             <h2>Enviar Foto</h2>
-            <form id="formEnviarFoto" class="form-group">
+            <form id="formEnviarFoto">
                 <input type="text" id="inputEnviarFoto" placeholder="Insira sua foto...">
                 <button type="submit">Enviar</button>
             </form>
@@ -70,30 +70,40 @@
         </section>
 
         <section>
-            <form id="myForm">
-                <label for="inputField">Saldo de RIPTU:</label>
-                <input type="text" id="inputField1" name="inputField1" placeholder="Insira Endereço do Cidadão...">
-                <button type="submit" id="button1" position="center">Pesquisar</button>
-                <label id="resultArea1"></label> 
-            </form>
-        </section>
 
-        <section>
-            <form id="myForm">
-                <label for="inputField">Saldo CGT:</label>
-                <input type="text" id="inputField2" name="inputField2" placeholder="Insira Endereço do Cidadão...">
-                <label id="resultArea2"></label> 
-                <button type="submit" id="button2" position="center">Pesquisar</button>
-            </form>
-        </section>
+            <div class="container">
+                <div class="inline">
+                  <form id="myForm">
+                    <label for="inputField">Saldo de RIPTU:</label>
+                    <input type="text" id="inputField1" name="inputField1" placeholder="Insira Endereço do Cidadão...">
+                    <button type="submit" id="button1" position="center">Pesquisar</button>
+                    <label id="resultArea1"></label> 
+                  </form>
+                </div>
+            </div>
 
-        <section>
-            <form id="myForm">
-                <label for="inputField3">Saldo Smart Contract:</label>
-                <input type="text" id="inputField3" name="inputField3"placeholder="Insira Endereço do Cidadão...">
-                <button type="submit" id="button3" position="center">Pesquisar</button>
-                <label id="resultArea3"></label> 
-            </form>
+            <div class="container">
+                <div class="inline">
+                  <form id="myForm">
+                    <label for="inputField">Saldo CGT:</label>
+                    <input type="text" id="inputField2" name="inputField2" placeholder="Insira Endereço do Cidadão...">
+                    <label id="resultArea2"></label> 
+                    <button type="submit" id="button2" position="center">Pesquisar</button>
+                  </form>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="inline">
+                  <form id="myForm">
+                    <label for="inputField3">Saldo Smart Contract:</label>
+                    <input type="text" id="inputField3" name="inputField3"placeholder="Insira Endereço do Cidadão...">
+                    <button type="submit" id="button3" position="center">Pesquisar</button>
+                    <label id="resultArea3"></label> 
+                  </form>
+                </div>
+            </div>
+
         </section>
 
         <script type="module"> import { ethers } from "./ethers-5.2.esm.min.js"; </script>

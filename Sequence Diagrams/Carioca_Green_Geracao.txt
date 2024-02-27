@@ -1,0 +1,25 @@
+title Carioca Green - Geração de Créditos (RIPTU Tokens)
+
+Cidadão->DAPP Carioca Green:    Cria USUÁRIO e adere \nao programa Carioca Green
+
+Cidadão->DAPP Carioca Green: Planta árvore, tira uma FOTO e \n envia a FOTO para prefeitura
+
+DAPP Carioca Green-> DAPP Carioca Green: Valida veracidade\n.    da FOTO
+
+DAPP Carioca Green->IPFS PINATA: Armazena a FOTO e METADADOS
+
+IPFS PINATA-->DAPP Carioca Green: Retorna CID_FOTO e CID_METADADOS
+
+DAPP Carioca Green->Carioca Green SC: Registra CID_METADADOS e gera os créditos de IPTU
+
+Carioca Green SC->Carioca Green Tree NFT SC: Gera um NFT CGT (Certificado \n      da Árvore) e envia para \n       a carterida do cidadão
+
+Carioca Green Tree NFT SC-->Carioca Green SC: Confirma transação
+
+Carioca Green Tree NFT SC->Rio IPTU FT SC:             Gera os tokens RIPTU \n referentes aos créditos de IPTU e envia \n        para a carteira do Cidadão
+
+Rio IPTU FT SC-->Carioca Green SC: Confirma transação
+
+Carioca Green SC-->DAPP Carioca Green: Confirma transação
+
+DAPP Carioca Green-->Cidadão: Confirma registro da árvore e a geração de créditos de IPTU
