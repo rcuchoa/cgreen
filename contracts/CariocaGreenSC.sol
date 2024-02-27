@@ -9,21 +9,30 @@ import "./CariocaGreenTreeToken.sol";
 import "./RioIPTUToken.sol";
 
 contract CariocaGreenSC is Ownable {
-    address public ownerAddress;
-    CariocaGreenTreeToken public cariocaGreenTreeToken;
-    RioIPTUToken public rioIPTUToken;
 
-    event CariocaGreenSCCreated(address indexed user);
+    uint256 public numRIPTUperTree;                             // Número de tokens RIPTU por cada árvore plantada
+    CariocaGreenTreeToken public cariocaGreenTreeToken;     // Referência ao SC CariocaGreenTreeToken
+    RioIPTUToken public rioIPTUToken;                       // Referência ao SC RioIPTUToken
 
-    constructor(address _initialOwner) 
-        Ownable(_initialOwner){
-        ownerAddress = _initialOwner;
-        cariocaGreenTreeToken = new CariocaGreenTreeToken(_initialOwner);
-        rioIPTUToken = new RioIPTUToken(_initialOwner);
-        emit CariocaGreenSCCreated(_initialOwner);
+    event CariocaGreenSCCreated(address indexed owner);
+    constructor(address initialOwner, uint256 amount) 
+        Ownable(initialOwner) {
+        numRIPTUperTree = amount;
+        cariocaGreenTreeToken = new CariocaGreenTreeToken(initialOwner);
+        rioIPTUToken = new RioIPTUToken(initialOwner);
+        emit CariocaGreenSCCreated(initialOwner);
     }
 
-    function mintGreenTreeToken(address _to) public onlyOwner {
-        cariocaGreenTreeToken.safeMint(_to);
+    function geraCreditosIPTU (address to) public onlyOwner {
+        cariocaGreenTreeToken.safeMint(to);                // Gera uma token NFT CGT para registro da árvore
+        rioIPTUToken.mint(to, numRIPTUperTree);            // Gera um conjunto de tokens RIPTU para registro dos créditos
+    }
+
+    function transferCreditosIPTU (address from, address to, uint256 amount) public onlyOwner {
+        rioIPTUToken.transfer(from, to, amount);
+    }
+
+    function balanceOf (address wallet) public onlyOwner {
+        return this.balanceOf(wallet);
     }
 }

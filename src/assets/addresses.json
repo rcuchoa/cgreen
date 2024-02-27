@@ -1,8 +1,14 @@
 {
   "sepolia": {
-    "initialOwner": "0x0b0F536E11338dCC29ba67c788FB3B68119F4b90"
+    "initialOwner": "0x0b0F536E11338dCC29ba67c788FB3B68119F4b90",
+    "rioIPTUTokenAddress": "",
+    "cariocaGreenTreeTokenAddress": "",
+    "cariocaGreenSCAddress": ""
   },
   "localhost": {
-    "initialOwner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+    "initialOwner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "rioIPTUTokenAddress": "0xcbEAF3BDe82155F56486Fb5a1072cb8baAf547cc",
+    "cariocaGreenTreeTokenAddress": "0x1429859428C0aBc9C2C47C8Ee9FBaf82cFA0F20f",
+    "cariocaGreenSCAddress": "0xB0D4afd8879eD9F52b28595d31B441D079B2Ca07"
   }
 }

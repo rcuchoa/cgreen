@@ -2,10 +2,10 @@ const fs = require('fs');
 const { ethers, JsonRpcProvider } = require('ethers');
 
 // Read the ABI from file
-const file_path_CariocaGreenTreeToken = "src/artifacts/contracts/CariocaGreenTreeToken.sol/CariocaGreenTreeToken.json";
+const file_path_CariocaGreenTreeToken = "artifacts/contracts/CariocaGreenTreeToken.sol/CariocaGreenTreeToken.json";
 const abi_CariocaGreenTreeToken = JSON.parse(fs.readFileSync(file_path_CariocaGreenTreeToken))['abi'];
 
-const file_path_RioIPTUToken = "src/artifacts/contracts/RioIPTUToken.sol/RioIPTUToken.json";
+const file_path_RioIPTUToken = "artifacts/contracts/RioIPTUToken.sol/RioIPTUToken.json";
 const abi_RioIPTUToken = JSON.parse(fs.readFileSync(file_path_RioIPTUToken))['abi'];
 
 // Address of your contract

@@ -2,18 +2,14 @@ const http = require('http');
 const readFile = require('fs').readFile;
 const createServer = require('http').createServer;
 
-// import  *  as http  from 'http';
-// import { readFile } from 'fs';
-// import { createServer } from 'http';
-
 const PORT = process.env.PORT || 3000; // You can change the port number if needed
 
 const server = createServer((req, res) => {
   console.log('req.url:', req.url);
-  let filePath = '.' + req.url;
+  let filePath = './src' + req.url;
   console.log('filePath:', filePath);
-  if (filePath === './') {
-    filePath = './index.html';
+  if (filePath === './src/') {
+    filePath = './src/index.html';
   }
   console.log('filePath:', filePath);
 

@@ -1,0 +1,13 @@
+title Carioca Green - Transfere Créditos
+
+Cidadão->DAPP CGreen: Solicita transferência de NUM_CRÉDITOS para AMIGO
+
+DAPP CGreen->Carioca Green SC: Solicita transferência de NUM_CRÉDITOS para a carteira AMIGO
+
+Carioca Green SC->Rio IPTU FT SC: Solicita transferência de NUM_CRÉDITOS para a carteira AMIGO
+
+Rio IPTU FT SC-->Carioca Green SC: Confirma transação
+
+Carioca Green SC-->DAPP CGreen: Confirma transação
+
+DAPP CGreen-->Cidadão: Confirma transferência de créditos

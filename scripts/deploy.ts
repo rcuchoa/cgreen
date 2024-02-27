@@ -2,6 +2,7 @@ import { ethers } from "hardhat";
 import hre from 'hardhat';
 
 const network = hre.network.name;
+const numRIPTUperTree = 100;
 
 console.log(network);
 
@@ -55,7 +56,7 @@ async function main() {
 
   // Create  Carioca Green Smart Contract
   const ContractFactoryCariocaGreenSC = await ethers.getContractFactory("CariocaGreenSC");
-  const instanceCariocaGreenSC = await ContractFactoryCariocaGreenSC.deploy(initialOwner);
+  const instanceCariocaGreenSC = await ContractFactoryCariocaGreenSC.deploy(initialOwner, numRIPTUperTree);
   await instanceCariocaGreenSC.waitForDeployment();
   cariocaGreenSCAddress = await instanceCariocaGreenSC.getAddress();
   console.log(`Contract Carioca Green deployed to ${cariocaGreenSCAddress}`);

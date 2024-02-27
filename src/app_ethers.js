@@ -1,70 +1,39 @@
-const { ethers } = require("hardhat");
-const { JsonRpcProvider } = require("ethers/providers");
+import { ethers } from "./ethers-5.2.esm.min.js";
+import { provider , signer } from "./index.js";
 
 // Read the ABI from file
-function readABI(_url) {
-    fetch(_url)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.text(); // assuming the file contains text
-        })
-        .then(data => {
-            //console.log(data);
-            const _abi = JSON.parse(data)['abi'];
-            //console.log(_abi);
-            return(_abi);
-        })
-        .catch(error => {
-            console.log('There was a problem with the fetch operation:', error);
-        });
+async function synchronousFetch(_url) {
+    try {
+      const response = await fetch(_url);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      return data['abi'];
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      throw error;
+    }
 };
 
-const abi_CariocaGreenTreeToken = readABI('http://localhost:3000/assets/CariocaGreenTreeToken.json');
-const address_CariocaGreenTreeToken = '0x8f86403A4DE0BB5791fa46B8e795C547942fE4Cf';
+//  Initialize Contracts
+export async function initContract(_address, _abi_url) {
+    const _abi = await synchronousFetch(_abi_url);
+    console.log("Params Inicializa Contrato: ", _address, _abi_url, _abi, provider);
+    const _contract = new ethers.Contract(_address, _abi, provider);
+    return _contract;
+};
 
-// // const file_path_RioIPTUToken = "./assets/RioIPTUToken.json";
-// // const abi_RioIPTUToken = JSON.parse(readFileSync(file_path_RioIPTUToken))['abi'];
+// Get Balance
+export async function getBalance(_wallet, _contract) {
+    console.log("Contrato Balance: ", _wallet, _contract);
 
-// // Address of your contract
-// const address_CariocaGreenTreeToken = '0x8f86403A4DE0BB5791fa46B8e795C547942fE4Cf';
-// const address_RioIPTUToken = '0x0E801D84Fa97b50751Dbf25036d067dCf18858bF';
-
-// Initialize provider
-const provider = new JsonRpcProvider('http://localhost:8545');
-const signer = provider.getSigner()
-     .then(signer => console.log("Signer:", signer.address))
-     .catch(error => console.error("Error:", error));
-
-// Create contract instance
-// const contract_RioIPTUToken = new ethers.Contract(address_RioIPTUToken, abi_RioIPTUToken, provider);
-const contract_CariocaGreenTreeToken = new ethers.Contract(address_CariocaGreenTreeToken, abi_CariocaGreenTreeToken, provider);
-
-// contract_RioIPTUToken.balanceOf('0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266')
-//     .then(result => console.log("Ballance:", result))
-//     .catch(error => console.error("Error:", error));
-
-contract_CariocaGreenTreeToken.balanceOf('0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266')
-     .then(result => console.log("Ballance:", result))
-     .catch(error => console.error("Error:", error));
-
-// contract_RioIPTUToken.mint(signer,100)
-//     .then(result => console.log("Ballance:", result))
-//     .catch(error => console.error("Error:", error));
-
-// contract_CariocaGreenTreeToken.safeMint(signer)
-//     .then(result => console.log("Ballance:", result))
-//     .catch(error => console.error("Error:", error));
-
-// contract_RioIPTUToken.balanceOf('0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266')
-//     .then(result => console.log("Ballance:", result))
-//     .catch(error => console.error("Error:", error));
-
-// contract_CariocaGreenTreeToken.balanceOf('0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266')
-//     .then(result => console.log("Ballance:", result))
-//     .catch(error => console.error("Error:", error));
-
-
-
-
+    await _contract.balanceOf(_wallet)
+        .then(_result => {
+            console.log("BALANCE: ", _result['_hex']);
+            return (_result['_hex']);
+        })
+        .catch(_error => {
+            console.log("ERRO:", _error);
+        });
+};

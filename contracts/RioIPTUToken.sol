@@ -30,6 +30,10 @@ contract RioIPTUToken is ERC20, ERC20Pausable, Ownable {
         _mint(to, amount);
     }
 
+    function transfer (address from, address to, uint256 amount) public onlyOwner {
+        transferFrom(from, to, amount);
+    }
+
     // The following functions are overrides required by Solidity.
 
     function _update(address from, address to, uint256 value)
