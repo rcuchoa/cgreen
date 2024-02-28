@@ -1,71 +1,100 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
     margin: 0;
     padding: 0;
+    background-color: rgb(177, 241, 175);
+    align-items: center;
+    align-content: center;
   }
   
-header {
-    background-color: #4CAF50;
-    color: white;
-    text-align: center;
-    padding: 10px 0;
-}
+  .container {
+    max-width: 900px;
+    width: auto;
+    margin: 10px auto;
+    padding: 0 10px;
+    position: left;
+  }
 
-main {
+  .container img {
+    text-align: center; /* This centers the image horizontally */
+    display: inline-block; /* This ensures the image is treated as an inline block element */
+  }
+  
+  .group {
+    margin-bottom: 10px;
+  }
+  
+  .block {
+    border: 3px solid #ccc;
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 50px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  h2 {
+    font-size: 20px;
+    margin-top: 10px;
+  }
+  
+  .input-row {
+    display:flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .input-row button {
+    margin-right: 10px;
+  }
+  
+  .inputs {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
-    padding: 10px;
-}
-
-section {
-    width: 45%;
-    margin-bottom: 10px;
-}
-
-h2 {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-    text-align: center;
-}
-
-h1 {
-    font-size: 1em;
-    margin-bottom: 10px;
-    text-align: center;
   }
-
-form {
-    flex: 1;
+  
+  .input-item {
     display: flex;
     flex-direction: column;
+    flex: 1;
     margin-right: 10px;
-}
-
-input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    height: 40px;
+    border: 2px solid #cccccc;
+  }
+  
+  .input-item label {
+    margin-bottom: 5px;
   }
 
-button {
-    /*width: 200px;
+  .output {
+    display: flex;
+    margin-top: 10px;
     height: 40px;
-    padding: 10px; */
+    padding: 5px;
+  }
+  
+  .input-item input {
+    height: 40px;
+    padding: 8px;
+  }
+  
+  footer {
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  header {
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  button {
+    height: 40px;
+    width: 100px;
     align-self: center;
     text-align: center;
-    line-height: 20px;
     border: 2px solid black;
     display: inline-block;
     cursor: pointer;
@@ -78,52 +107,3 @@ button:hover {
     background-color: rgb(8, 66, 28);
     color: white;
   }
-
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: inline;
-    position: relative;
-    width: auto;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-  
-.center {
-    position: absolute;
-    left: 50%; 
-    transform: translate(-50%, -50%);
-    max-width: 100%;
-    max-height: 100%;
-}
-
-inline {
-    display: flex;
-    align-items: center;
-}
-  
-#resultArea {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-top: 10px;
-}
-
-.form-group {
-    display: flex;
-    align-items: center;
-  }
-  
-.form-group input {
-    flex: 1; /* Allow input to take up remaining space */
-    margin-right: 5px; /* Add some spacing between input and button */
-}
-  
-.output-area {
-    margin-top: 10px; /* Add spacing between form-group and output-area */
-}

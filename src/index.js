@@ -128,74 +128,85 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    document.getElementById('formEnviarFoto').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const photo = document.getElementById('inputEnviarFoto').value;
-        console.log('Enviar Foto: ', photo);
-        document.getElementById('divFoto').textContent = "Foto enviada. Muito obrigado Carioca Green!";
-    });
-
-    document.getElementById('formVerificarCredito').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const address = document.getElementById('inputVerificarCredito').value;
-        console.log('Verifica Credito:', address);
-        document.getElementById('divCredito').textContent = "Parabéns! Continue sendo um carioca consciente!";
-    });
-
-    document.getElementById('formTransferirCredito').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const address = document.getElementById('inputTransferirCredito').value;
-        console.log('Transferir Credito:', address);
-        document.getElementById('divTransferencia').textContent = "Crédito enviado! Seu amigo deve estar feliz!";
-    });
-
-    document.getElementById('formMinhasArvores').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const address = document.getElementById('inputMinhasArvores').value;
-        console.log('Minhas Arvores:', address);
-        document.getElementById('divArvores').textContent = "Parabéns! Continue sendo um carioca consciente!";
-
-    });
-
+    //-- Group 1 --//
     document.getElementById('button1').addEventListener('click', function(event) {
         event.preventDefault();
-        const _address = document.getElementById('inputField1').value;
-        getBalance(_address, contract_RioIPTUToken)
-            .then(_value => {
-                console.log(_value);
-                document.getElementById('resultArea1').textContent = `Saldo de RIPTUs: ${_value}`;
-            })
-            .catch(_error => {
-                console.log(_error);
-                document.getElementById('resultArea1').textContent = `Erro na leitura!`;
-            });
+        const input1_1 = document.getElementById('input1_1').value;
+        console.log('CALLBACK_GRUPO1: ', input1_1);
+        document.getElementById('output1').textContent = "Foto enviada com sucesso. Muito obrigado Carioca Green!";
     });
 
+    //-- Group 2 --//
     document.getElementById('button2').addEventListener('click', function(event) {
         event.preventDefault();
-        const _address = document.getElementById('inputField2').value;
-        getBalance(_address, contract_CariocaGreenTreeToken)
+        const input2_1 = document.getElementById('input2_1').value;
+        console.log('CALLBACK_GRUPO2:', input2_1);
+        document.getElementById('output2').textContent = "Parabéns! Continue sendo um carioca consciente!";
+    });
+
+    //-- Group 3 --//
+    document.getElementById('button3').addEventListener('click', function(event) {
+        event.preventDefault();
+        const input3_1 = document.getElementById('input3_1').value;
+        console.log('CALLBACK_GRUPO3:', input3_1);
+        document.getElementById('output3').textContent = "Crédito enviado! Seu amigo deve estar feliz!";
+    });
+
+    //-- Group 4 --//
+    document.getElementById('button4').addEventListener('click', function(event) {
+        event.preventDefault();
+        const input4_1 = document.getElementById('input4_1').value;
+        const input4_2 = document.getElementById('input4_2').value;
+        console.log('CALLBACK_GRUPO4:', input4_1, input4_2);
+        document.getElementById('output4').textContent = "Parabéns! Continue sendo um carioca consciente!";
+
+    });
+
+    //-- Group 5 --//
+    document.getElementById('button5').addEventListener('click', function(event) {
+        event.preventDefault();
+        const input5_1 = document.getElementById('input5_1').value;
+        console.log('CALLBACK_GRUPO5:', input5_1);
+        getBalance(input5_1, contract_RioIPTUToken)
             .then(_value => {
                 console.log(_value);
-                document.getElementById('resultArea2').textContent = `Saldo de CGTs: ${_value}`;
+                document.getElementById('output5').textContent = `Saldo de RIPTUs: ${_value}`;
             })
             .catch(_error => {
                 console.log(_error);
-                document.getElementById('resultArea2').textContent = `Erro na leitura!`;
+                document.getElementById('output5').textContent = `Erro na leitura!`;
             });
     });
 
-    document.getElementById('button3').addEventListener('click', function(event) {
+    //-- Group 6 --//
+    document.getElementById('button6').addEventListener('click', function(event) {
         event.preventDefault();
-        const _address = document.getElementById('inputField3').value;
-        getBalance(_address, contract_CariocaGreenSC)
+        const input6_1 = document.getElementById('input6_1').value;
+        console.log('CALLBACK_GRUPO6:', input6_1);
+        getBalance(input6_1, contract_CariocaGreenTreeToken)
             .then(_value => {
                 console.log(_value);
-                document.getElementById('resultArea3').textContent = `Saldo do SC: ${_value}`;
+                document.getElementById('output6').textContent = `Saldo de CGTs: ${_value}`;
             })
             .catch(_error => {
                 console.log(_error);
-                document.getElementById('resultArea3').textContent = `Erro na leitura!`;
+                document.getElementById('output6').textContent = `Erro na leitura!`;
+            });
+    });
+
+    //-- Group 7 --//
+    document.getElementById('button7').addEventListener('click', function(event) {
+        event.preventDefault();
+        const input7_1 = document.getElementById('input7_1').value;
+        console.log('CALLBACK_GRUPO7:', input7_1);
+        getBalance(input7_1, contract_CariocaGreenSC)
+            .then(_value => {
+                console.log(_value);
+                document.getElementById('output7').textContent = `Saldo do SC: ${_value}`;
+            })
+            .catch(_error => {
+                console.log(_error);
+                document.getElementById('output7').textContent = `Erro na leitura!`;
             });
     });
 
