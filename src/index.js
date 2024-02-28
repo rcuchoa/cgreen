@@ -1,10 +1,15 @@
 import { ethers } from "./ethers-5.2.esm.min.js";
-import { initContract, getBalance } from "./app_ethers.js";
+import { initContract, connectToMetaMask, signAndSendEther, registerPlantedTree, getBalance } from "./app_ethers.js";
 
 export let provider = {};
 export let signer = {};
 
-let ownerContract = '';
+let networkName = '';
+let chainID = 0;
+let ownerAddress = '';
+let user1Address = '';
+let user2Address = '';
+let anotherAccount = '';
 let contract_address_RioIPTUToken = '';
 let contract_address_CariocaGreenTreeToken = '';
 let contract_address_CariocaGreenSC = '';
@@ -20,24 +25,36 @@ export async function fetchAddresses(blockchainNetwork) {
                 console.log(addresses);
                 switch (blockchainNetwork) {
                     case "sepolia":  {
-                        ownerContract = addresses['sepolia']['initialOwner'];
-                        contract_address_RioIPTUToken = addresses['sepolia']['rioIPTUTokenAddress'];
-                        contract_address_CariocaGreenTreeToken = addresses['sepolia']['cariocaGreenTreeTokenAddress'];
-                        contract_address_CariocaGreenSC = addresses['sepolia']['cariocaGreenSCAddress'];
+                        networkName = addresses['sepolia']['networkName'];
+                        chainID = addresses['sepolia']['chainID'];
+                        ownerAddress = addresses['sepolia']['ownerAddress'];
+                        user1Address = addresses['sepolia']['user1Address'];
+                        user2Address = addresses['sepolia']['user2Address'];
+                        contract_address_RioIPTUToken = addresses['sepolia']['contract_address_RioIPTUToken'];
+                        contract_address_CariocaGreenTreeToken = addresses['sepolia']['contract_address_CariocaGreenTreeToken'];
+                        contract_address_CariocaGreenSC = addresses['sepolia']['contract_address_CariocaGreenSC'];
                         break;
                     }
                     case "localhost": {
-                        ownerContract = addresses['localhost']['initialOwner'];
-                        contract_address_RioIPTUToken = addresses['localhost']['rioIPTUTokenAddress'];
-                        contract_address_CariocaGreenTreeToken = addresses['localhost']['cariocaGreenTreeTokenAddress'];
-                        contract_address_CariocaGreenSC = addresses['localhost']['cariocaGreenSCAddress'];
+                        networkName = addresses['localhost']['networkName'];
+                        chainID = addresses['localhost']['chainID'];
+                        ownerAddress = addresses['localhost']['ownerAddress'];
+                        user1Address = addresses['localhost']['user1Address'];
+                        user2Address = addresses['localhost']['user2Address'];
+                        contract_address_RioIPTUToken = addresses['localhost']['contract_address_RioIPTUToken'];
+                        contract_address_CariocaGreenTreeToken = addresses['localhost']['contract_address_CariocaGreenTreeToken'];
+                        contract_address_CariocaGreenSC = addresses['localhost']['contract_address_CariocaGreenSC'];
                         break;
                     }
-                    case "": {
-                        ownerContract = '';
-                        contract_address_RioIPTUToken = '';
-                        contract_address_CariocaGreenTreeToken = '';
-                        contract_address_CariocaGreenSC = '';
+                    default: {
+                        networkName = addresses['localhost']['networkName'];
+                        chainID = addresses['localhost']['chainID'];
+                        ownerAddress = addresses['localhost']['ownerAddress'];
+                        user1Address = addresses['localhost']['user1Address'];
+                        user2Address = addresses['localhost']['user2Address'];
+                        contract_address_RioIPTUToken = addresses['localhost']['contract_address_RioIPTUToken'];
+                        contract_address_CariocaGreenTreeToken = addresses['localhost']['contract_address_CariocaGreenTreeToken'];
+                        contract_address_CariocaGreenSC = addresses['localhost']['contract_address_CariocaGreenSC'];
                         break;
                     };
                 };
@@ -128,11 +145,38 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    document.getElementById('connectionTest').addEventListener('click', function(event) {
+        event.preventDefault();
+        if (window.ethereum) {
+            connectToMetaMask(networkName, chainID);
+            // Create an ethers provider using MetaMask provider
+            console.log('Iniciar teste de conexão à Metamask: ');
+            signAndSendEther(ownerAddress,user1Address, "20.00000")
+                .then(_return => {
+                    console.log("OK: Call signAndSendEther :", _return)
+                })
+                .catch(_error => {
+                    console.log("ERROR: Call signAndSendEther :", _error)
+                });
+        } else {
+            console.log('Erro na conexão com Metatask!');
+        };
+    });
+
     //-- Group 1 --//
     document.getElementById('button1').addEventListener('click', function(event) {
         event.preventDefault();
         const input1_1 = document.getElementById('input1_1').value;
         console.log('CALLBACK_GRUPO1: ', input1_1);
+        registerPlantedTree(input1_1)
+            .then(_value => {
+                console.log(_value);
+                document.getElementById('output5').textContent = `Número total de árvores plantadas: ${_value}`;
+            })
+            .catch(_error => {
+                console.log(_error);
+                document.getElementById('output5').textContent = `Erro no registro de árvore plantada!`;
+            });
         document.getElementById('output1').textContent = "Foto enviada com sucesso. Muito obrigado Carioca Green!";
     });
 

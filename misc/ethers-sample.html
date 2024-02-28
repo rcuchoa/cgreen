@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ethers.js Example</title>
+</head>
+<body>
+  <h1>Ethers.js Example</h1>
+  <button onclick="signAndSend()">Sign and Send Transaction</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.5.4/dist/ethers.min.js"></script>
+  <script>
+    // Connect to Ethereum network using ethers.js
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+    // Function to sign and send transaction
+    async function signAndSend() {
+      try {
+        // Request user permission to connect MetaMask
+        await window.ethereum.request({ method: 'eth_requestAccounts' });
+        
+        // Get signer
+        const signer = provider.getSigner();
+
+        // Create transaction
+        const transaction = {
+          to: '0x123...', // Recipient address
+          value: ethers.utils.parseEther('0.1') // Value in Ether
+        };
+
+        // Sign transaction
+        const signedTransaction = await signer.sendTransaction(transaction);
+        
+        // Output transaction hash
+        console.log('Transaction Hash:', signedTransaction.hash);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+  </script>
+</body>
+</html>
