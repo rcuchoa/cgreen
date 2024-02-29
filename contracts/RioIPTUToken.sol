@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 // Compatible with OpenZeppelin Contracts ^5.0.0
-pragma solidity ^0.8.24;
+pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Pausable.sol";
@@ -24,6 +24,10 @@ contract RioIPTUToken is ERC20, ERC20Pausable, Ownable {
 
     function unpause() public onlyOwner {
         _unpause();
+    }
+
+    function getBalance() public onlyOwner {
+        getBalance();
     }
 
     function mint(address to, uint256 amount) public onlyOwner {

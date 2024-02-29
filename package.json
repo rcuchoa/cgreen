@@ -5,6 +5,7 @@
     "@webpack-cli/generators": "^3.0.7",
     "hardhat": "^2.20.1",
     "nodemon": "^3.1.0",
+    "sola": "^0.0.1",
     "webpack": "^5.90.3",
     "webpack-bundle-analyzer": "^4.10.1",
     "webpack-cli": "^5.1.4",

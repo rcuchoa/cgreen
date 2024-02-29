@@ -10,8 +10,8 @@ body {
   .container {
     max-width: 900px;
     width: auto;
-    margin: 10px auto;
-    padding: 0 10px;
+    margin: 5px auto;
+    padding: 2px;
     position: left;
   }
 
@@ -21,33 +21,33 @@ body {
   }
   
   .group {
-    margin-bottom: 10px;
+    margin-bottom: 2px;
   }
   
   .block {
-    border: 3px solid #ccc;
-    padding: 10px;
+    border: 2px solid #ccc;
+    padding: 2px;
   }
 
   h1 {
-    font-size: 50px;
-    margin-bottom: 10px;
+    font-size: 30px;
+    margin-bottom: 2px;
     text-align: center;
   }
   
   h2 {
-    font-size: 20px;
-    margin-top: 10px;
+    font-size: 15px;
+    margin-top: 2px;
   }
   
   .input-row {
     display:flex;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 2px;
   }
   
   .input-row button {
-    margin-right: 10px;
+    margin-right: 2px;
   }
   
   .inputs {
@@ -59,43 +59,43 @@ body {
     display: flex;
     flex-direction: column;
     flex: 1;
-    margin-right: 10px;
-    height: 40px;
-    border: 2px solid #cccccc;
+    margin-right: 2px;
+    height: 30px;
   }
   
   .input-item label {
-    margin-bottom: 5px;
+    margin-bottom: 2px;
   }
 
   .output {
     display: flex;
-    margin-top: 10px;
+    flex-direction: column;
+    flex: 1;
+    margin-right: 2px;
     height: 40px;
-    padding: 5px;
   }
   
   .input-item input {
-    height: 40px;
-    padding: 8px;
+    height: 30px;
+    padding: 2px;
   }
   
   footer {
-    margin-top: 10px;
+    margin-top: 2px;
     text-align: center;
   }
 
   header {
-    margin-top: 10px;
+    margin-top: 2px;
     text-align: center;
   }
   
   button {
-    height: 40px;
+    height: 30px;
     width: 100px;
     align-self: center;
     text-align: center;
-    border: 2px solid black;
+    border: 1px solid black;
     display: inline-block;
     cursor: pointer;
     background-color: #043c05;

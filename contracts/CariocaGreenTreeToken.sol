@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 // Compatible with OpenZeppelin Contracts ^5.0.0
-pragma solidity ^0.8.24;
+pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
@@ -23,6 +23,10 @@ contract CariocaGreenTreeToken is ERC721, ERC721Enumerable, ERC721Pausable, Owna
 
     function unpause() public onlyOwner {
         _unpause();
+    }
+
+    function getBalance() public onlyOwner {
+        getBalance();
     }
 
     function safeMint(address to) public onlyOwner {

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.24;
+pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/utils/Address.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -8,19 +8,19 @@ contract CariocaGreenSC is Ownable {
 
     address contractOwner;                           // Save contract owner
 
-    uint256 creditsPerPlantedTree;                         // Store number of credits (RIPTUs) per planted tree (CGT)
+    uint creditsPerPlantedTree;                               // Store number of credits (RIPTUs) per planted tree (CGT)
     //CariocaGreenTreeToken public cariocaGreenTreeToken;     // Instantiate CariocaGreenTreeToken smart contract
     //RioIPTUToken public rioIPTUToken;                       // Instatiate RioIPTUToken smart contract
     
-    mapping(address => uint256) totalPlantedTrees;           // Store total number of trees (CGTs) planted by each citizen
-    mapping(address => uint256) totalCredits;          // Store total number of credits (RIPTUs) owned by each citizen
+    mapping(address => uint) totalPlantedTrees;           // Store total number of trees (CGTs) planted by each citizen
+    mapping(address => uint) totalCredits;          // Store total number of credits (RIPTUs) owned by each citizen
 
     event CariocaGreenSCCreated(address indexed owner);                                                     // Event to register smart contract creation
-    event PlantedTreeRegistered(address indexed citizen, uint256 indexed trees, uint256 indexed credits);   // Event to register a new planted tree registration
-    event PlantedTreeUnRegistered(address indexed citizen, uint256 indexed trees, uint256 indexed credits); // Event to register credits registration
+    event PlantedTreeRegistered(address indexed citizen, uint indexed trees, uint indexed credits);   // Event to register a new planted tree registration
+    event PlantedTreeUnRegistered(address indexed citizen, uint indexed trees, uint indexed credits); // Event to register credits registration
 
 
-    constructor(uint256 _creditsPerPlantedTree) Ownable(msg.sender) {
+    constructor(uint _creditsPerPlantedTree) Ownable(msg.sender) {
         require(_creditsPerPlantedTree > 0, "Total number of credits per Tree must be greater than zero");
 
         contractOwner = msg.sender;
@@ -38,7 +38,7 @@ contract CariocaGreenSC is Ownable {
     //     rioIPTUToken.mint(to, numRIPTUperTree);            // Gera um conjunto de tokens RIPTU para registro dos créditos
     // }
 
-    // function transferCreditosIPTU (address from, address to, uint256 amount) public onlyOwner {
+    // function transferCreditosIPTU (address from, address to, uint amount) public onlyOwner {
     //     rioIPTUToken.transfer(from, to, amount);
     // }
 
@@ -47,7 +47,7 @@ contract CariocaGreenSC is Ownable {
     // }
 
     // Contract owner call this funtion to register a new planted tree
-    function registerPlantedTree(address _citizen) public onlyOwner returns (uint256){
+    function registerPlantedTree(address _citizen) public onlyOwner returns (uint){
       totalPlantedTrees[_citizen]  += 1;
       totalCredits[_citizen] += creditsPerPlantedTree;
 
@@ -58,7 +58,7 @@ contract CariocaGreenSC is Ownable {
 
     // Contract owner call this funtion to unregister a new planted tree
     function unregisterPlantedTree(address _citizen) public onlyOwner {
-      require(totalPlantedTrees[msg.sender] > 0, "Citizen does not have any planted tree");
+      require(totalPlantedTrees[msg.sender] > 0, "Citizen does not have any planted tree.");
 
       totalPlantedTrees[msg.sender]  -= 1;
       totalCredits[msg.sender] -= creditsPerPlantedTree;
@@ -67,14 +67,25 @@ contract CariocaGreenSC is Ownable {
     }
 
     // Citizen call this funtion to get his total number of planted trees
-    function getPlantedTrees(address _citizen) public view returns (uint256){
-      require(msg.sender == contractOwner || msg.sender == _citizen, "Only own citizen or contract owner can call this function");
+    function getPlantedTrees(address _citizen) public view returns (uint){
+      require(msg.sender == contractOwner || msg.sender == _citizen, "Only own citizen or contract owner can call this function.");
+
       return (totalPlantedTrees[_citizen]);
     }
 
     // Citizen call this funtion to get his total number of credits
-    function getTotalCredits(address _citizen) public view returns (uint256){
-      require(msg.sender == contractOwner || msg.sender == _citizen, "Only own citizen or contract owner can call this function");
+    function getTotalCredits(address _citizen) public view returns (uint){
+      require(msg.sender == contractOwner || msg.sender == _citizen, "Only own citizen or contract owner can call this function.");
+
       return(totalCredits[_citizen]);
+    }
+
+    // Citizen call this funtion to get his total number of credits
+    function transferCredits(address _citizen, uint _amount) public returns (uint){
+      require(totalCredits[msg.sender] >= _amount, "Citizen does not have enough credits to transfer.");
+
+      totalCredits[msg.sender] -= _amount;
+      totalCredits[_citizen] += _amount;
+      return(totalCredits[msg.sender]);
     }
 }

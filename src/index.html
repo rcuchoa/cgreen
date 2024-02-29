@@ -12,26 +12,22 @@
 
 <header>
     <h1>Carioca Green</h1> 
-    <img src="./assets/gogreen.png" alt="" width="200" height="150">
+    <img src="./assets/gogreen.png" alt="" width="100" height="100">
+    <div>
+    <button class="green-button" type="submit" id="connectMetamask" style="width: 150px">Conectar Metatask</button>
+    <div class="output" id="connectOutput"></div>
+    </div>
 </header>
 
 <br>
 
-<div class="container" position="center">
-    <button class="green-button" type="submit" id="connectMetatask" style="width: 200px">Connectar MetaMask</button>
-    <button class="green-button" type="submit" id="connectLocalhost" style="width: 200px">Connectar Localhost</button>
-    <button class="green-button" type="submit" id="connectionTest" style="width: 200px">Testar Metatask</button>
-</div>
-
-<div class="container">
-
 <!-- Group 1 -->
 <div class="group">
     <div class="block">
-        <h2>Enviar foto da árvore para obter créditos de IPTU:</h2>
+        <h2>Registrar árvore plantada:</h2>
     <div class="inputs">
         <div class="input-item">
-        <input type="text" id="input1_1" placeholder="Endereço do cidadão..."></input>
+        <input type="text" id="input1_1" placeholder="Carteira blockchain do cidadão..."></input>
         </div>
     </div>
     <div class="input-row">
@@ -44,10 +40,10 @@
 <!-- Group 2 -->
 <div class="group">
     <div class="block">
-        <h2>Consultar créditos de IPTU:</h2>
+        <h2>Consultar número total de árvores plantadas:</h2>
     <div class="inputs">
         <div class="input-item">
-        <input type="text" id="input2_1" placeholder="Endereço da Carteira..."></input>
+        <input type="text" id="input2_1" placeholder="Carteira blockchain do cidadão..."></input>
         </div>
     </div>
     <div class="input-row">
@@ -60,10 +56,10 @@
 <!-- Group 3 -->
 <div class="group">
     <div class="block">
-        <h2>Consultar quantidade de árvores plantadas:</h2>
+        <h2>Consultar quantidade total de créditos de IPTU:</h2>
     <div class="inputs">
         <div class="input-item">
-        <input type="text" id="input3_1" placeholder="Endereço da Carteira..."></input>
+        <input type="text" id="input3_1" placeholder="Carteira blockchain do cidadão..."></input>
         </div>
     </div>
     <div class="input-row">
@@ -76,13 +72,13 @@
 <!-- Group 4 -->
 <div class="group">
     <div class="block">
-        <h2>Transferir seus créditos de IPTU:</h2>
+        <h2>Transferir créditos de IPTU para um amigo:</h2>
     <div class="inputs">
         <div class="input-item">
-        <input type="text" id="input4_1" placeholder="Destino..."></input>
+        <input type="text" id="input4_1" placeholder="Carteira blockchain do amigo..."></input>
         </div>
         <div class="input-item">
-        <input type="text" id="input4_2" placeholder=Quantidade...></input>
+        <input type="text" id="input4_2" placeholder="Quantidade de créditos a transferir..."></input>
         </div>
     </div>
     <div class="input-row">
@@ -91,14 +87,16 @@
     <div class="output" id="output4"></div>
     </div>
 </div>
+<br>
+<br>
 
 <!-- Group 5 -->
 <div class="group">
     <div class="block">
-        <h2>Consultar saldo de tokens RIPTU:</h2>
+        <h2>Consultar saldo de tokens ETH da carteira:</h2>
     <div class="inputs">
         <div class="input-item">
-        <input type="text" id="input5_1" placeholder="Endereço..."></input>
+        <input type="text" id="input5_1" placeholder="Endereço da carteira..."></input>
         </div>
     </div>
     <div class="input-row">
@@ -111,10 +109,10 @@
 <!-- Group 6 -->
 <div class="group">
     <div class="block">
-        <h2>Consultar saldo de tokens CGT:</h2>
+        <h2>Consultar saldo de tokens CGT da carteira:</h2>
     <div class="inputs">
         <div class="input-item">
-        <input type="text" id="input6_1" placeholder="Endereço..."></input>
+        <input type="text" id="input6_1" placeholder="Endereço da carteira..."></input>
         </div>
     </div>
     <div class="input-row">
@@ -127,10 +125,10 @@
 <!-- Group 7 -->
 <div class="group">
     <div class="block">
-        <h2>Consultar saldo do contrato CariocaGreenSC:</h2>
+        <h2>Consultar saldo de tokens RIPTU da carteira:</h2>
     <div class="inputs">
         <div class="input-item">
-        <input type="text" id="input7_1" placeholder="Endereço..."></input>
+        <input type="text" id="input7_1" placeholder="Endereço da carteira..."></input>
         </div>
     </div>
     <div class="input-row">
@@ -138,8 +136,6 @@
     </div>
     <div class="output" id="output7"></div>
     </div>
-</div>
-
 </div>
 
 <div class="container">
@@ -150,9 +146,8 @@
 <p>&copy; 2024 MASTER IN DIGITAL TRANSFORMATION</p>
 </footer>
 
-<script type="module" src="ethers-5.2.esm.min.js"></script>
+<script type="module" src="ethers.js"></script>
 <script type="module" src="index.js"></script>
-<script type="module" src="app_ethers.js"></script>
 
 </body>
 </html>
