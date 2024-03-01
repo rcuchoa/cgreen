@@ -2,108 +2,127 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: rgb(177, 241, 175);
-    align-items: center;
-    align-content: center;
-  }
-  
-  .container {
-    max-width: 900px;
-    width: auto;
+    background-color: lightgray;
+    font-size: 16px;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px;
+    text-align: center;
+    margin-bottom: 2px;
+}
+
+.group {
     margin: 5px auto;
-    padding: 2px;
-    position: left;
-  }
+    max-width: 600px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
-  .container img {
-    text-align: center; /* This centers the image horizontally */
-    display: inline-block; /* This ensures the image is treated as an inline block element */
-  }
-  
-  .group {
-    margin-bottom: 2px;
-  }
-  
-  .block {
-    border: 2px solid #ccc;
-    padding: 2px;
-  }
+.block {
+    margin-bottom: 5px;
+}
 
-  h1 {
-    font-size: 30px;
-    margin-bottom: 2px;
-    text-align: center;
-  }
-  
-  h2 {
-    font-size: 15px;
-    margin-top: 2px;
-  }
-  
-  .input-row {
-    display:flex;
+.block h2 {
+    margin-top: 0;
+    margin-bottom: 0px;
+    font-size: 18px;
+}
+
+.inputs {
+    display: flex;
     align-items: center;
-    margin-bottom: 2px;
-  }
-  
-  .input-row button {
-    margin-right: 2px;
-  }
-  
-  .inputs {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  
-  .input-item {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    margin-right: 2px;
-    height: 30px;
-  }
-  
-  .input-item label {
-    margin-bottom: 2px;
-  }
+    margin-bottom: 3px;
+}
 
-  .output {
-    display: flex;
-    flex-direction: column;
+.inputs input[type="text"] {
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
     flex: 1;
-    margin-right: 2px;
-    height: 40px;
-  }
-  
-  .input-item input {
-    height: 30px;
-    padding: 2px;
-  }
-  
-  footer {
-    margin-top: 2px;
-    text-align: center;
-  }
+    margin-right: 3px;
+}
 
-  header {
+.inputs button {
+    padding: 6px 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.output {
     margin-top: 2px;
+    padding: 4px;
+    border-radius: 5px;
+    font-size: 13px;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    padding: 8px;
     text-align: center;
-  }
-  
-  button {
-    height: 30px;
-    width: 100px;
-    align-self: center;
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+footer img {
+    display: block;
+    margin: 5px auto;
+}
+
+/* Custom button style */
+.green-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 6px 12px;
     text-align: center;
-    border: 1px solid black;
+    text-decoration: none;
+    display: inline-block;
+    margin: 3px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.metamask-button {
+    background-color: lightgray;
+    border: none;
+    padding: 3px;
+    text-align: center;
+    text-decoration: none;
     display: inline-block;
     cursor: pointer;
-    background-color: #043c05;
-    color: rgb(248, 246, 245);
-    position: center;
-  }
-  
-button:hover {
-    background-color: rgb(8, 66, 28);
-    color: white;
-  }
+    border-radius: 2px;
+    font-size: 14px;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+    .group {
+        margin: 5px;
+    }
+}
+
+.button-output-container {
+    display: flex;
+    align-items: center;
+    background-color: lightgray;
+}
+
+.metamask-button {
+    background-color: lightgray;
+}
+
+.output {
+    background-color: lightgray;
+}

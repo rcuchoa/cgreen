@@ -118,44 +118,44 @@ async function main() {
     console.error('Error writing file addresses.json:', error);
   }
 
-  // Generate ABI files from solcjs
-  const { exec } = require('child_process');
+//   // Generate ABI files from solcjs
+//   const { exec } = require('child_process');
 
-  const command1 = 'solcjs --abi --include-path ./node_modules --base-path ./contracts --output-dir ./src/assets ./contracts/RioIPTUToken.sol';
-  exec(command1, (error: any, stdout: any, stderr: any) => {
-    if (error) {
-      console.error(`Error executing command: ${error}`);
-      return;
-    }
-      console.log(`Command output: ${stdout}`);
-  });
+//   const command1 = 'solcjs --abi --include-path ./node_modules --base-path ./contracts --output-dir ./src/assets ./contracts/RioIPTUToken.sol';
+//   exec(command1, (error: any, stdout: any, stderr: any) => {
+//     if (error) {
+//       console.error(`Error executing command: ${error}`);
+//       return;
+//     }
+//       console.log(`Command output: ${stdout}`);
+//   });
 
-  const command2 = 'solcjs --abi --include-path ./node_modules --base-path ./contracts --output-dir ./src/assets ./contracts/CariocaGreenTreetoken.sol';
-  exec(command2, (error: any, stdout: any, stderr: any) => {
-    if (error) {
-      console.error(`Error executing command: ${error}`);
-      return;
-    }
-      console.log(`Command output: ${stdout}`);
-  });
+//   const command2 = 'solcjs --abi --include-path ./node_modules --base-path ./contracts --output-dir ./src/assets ./contracts/CariocaGreenTreetoken.sol';
+//   exec(command2, (error: any, stdout: any, stderr: any) => {
+//     if (error) {
+//       console.error(`Error executing command: ${error}`);
+//       return;
+//     }
+//       console.log(`Command output: ${stdout}`);
+//   });
 
-  const command3 = 'solcjs --abi --include-path ./node_modules --base-path ./contracts --output-dir ./src/assets ./contracts/CariocaGreenSC.sol';
-  exec(command3, (error: any, stdout: any, stderr: any) => {
-    if (error) {
-      console.error(`Error executing command: ${error}`);
-      return;
-    }
-      console.log(`Command output: ${stdout}`);
-  });
+//   const command3 = 'solcjs --abi --include-path ./node_modules --base-path ./contracts --output-dir ./src/assets ./contracts/CariocaGreenSC.sol';
+//   exec(command3, (error: any, stdout: any, stderr: any) => {
+//     if (error) {
+//       console.error(`Error executing command: ${error}`);
+//       return;
+//     }
+//       console.log(`Command output: ${stdout}`);
+//   });
 
-  // Copy contracts ABI files to src/assets directory
-  try {
-    fs.copyFileSync("./artifacts/contracts/RioIPTUToken.sol/RioIPTUToken.json", "./src/assets/RioIPTUToken.json");
-    fs.copyFileSync("./artifacts/contracts/CariocaGreenTreeToken.sol/CariocaGreenTreeToken.json", "./src/assets/CariocaGreenTreeToken.json");
-    fs.copyFileSync("./artifacts/contracts/CariocaGreenSC.sol/CariocaGreenSC.json", "./src/assets/CariocaGreenSC.json");
-  } catch (error) {
-    console.error('Error writing file addresses.json:', error);
-  }
+//   // Copy contracts ABI files to src/assets directory
+//   try {
+//     fs.copyFileSync("./artifacts/contracts/RioIPTUToken.sol/RioIPTUToken.json", "./src/assets/RioIPTUToken.json");
+//     fs.copyFileSync("./artifacts/contracts/CariocaGreenTreeToken.sol/CariocaGreenTreeToken.json", "./src/assets/CariocaGreenTreeToken.json");
+//     fs.copyFileSync("./artifacts/contracts/CariocaGreenSC.sol/CariocaGreenSC.json", "./src/assets/CariocaGreenSC.json");
+//   } catch (error) {
+//     console.error('Error writing file addresses.json:', error);
+//   }
 
 };
 

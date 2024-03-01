@@ -335,7 +335,7 @@ document.getElementById('connectMetamask').addEventListener('click', function(ev
         connectToMetamask();                            // Create provider and signer
         connectToBlockchain(networkName, chainID);      // Connect to desired blockchain network
         initAllContracts();                             // Initialize all smart contracts
-        document.getElementById('connectOutput').textContent = `Conectado à Metamask! (Network: ${networkName}) (ChainID: ${chainID})!`;
+        document.getElementById('connectOutput').textContent = `Conectado à Metamask! Network: ${networkName} ChainID: ${chainID})!`;
     } else {
         document.getElementById('connectOutput').textContent = "Metamask não instalado!";
     };

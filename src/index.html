@@ -1,149 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carioca Green</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
 
 <header>
-    <h1>Carioca Green</h1> 
-    <img src="./assets/gogreen.png" alt="" width="100" height="100">
-    <div>
-    <button class="green-button" type="submit" id="connectMetamask" style="width: 150px">Conectar Metatask</button>
-    <div class="output" id="connectOutput"></div>
-    </div>
+    <h1>Carioca Green</h1>
 </header>
 
-<br>
-
+<div class="button-output-container">
+    <button class="metamask-button" type="button" id="connectMetamask">
+        <img src="./assets/metamask.png" alt="Button Image" width="50" height="50">
+    </button>
+    <div class="output" id="connectOutput"></div>
+</div>
+    
 <!-- Group 1 -->
 <div class="group">
     <div class="block">
-        <h2>Registrar árvore plantada:</h2>
-    <div class="inputs">
-        <div class="input-item">
-        <input type="text" id="input1_1" placeholder="Carteira blockchain do cidadão..."></input>
+        <h2>Registrar árvore plantada</h2>
+        <div class="inputs">
+            <input type="text" id="input1_1" placeholder="Carteira blockchain do cidadão...">
+            <button class="green-button" id="button1">Enviar</button>
         </div>
-    </div>
-    <div class="input-row">
-        <button class="green-button" id="button1">Submit</button>
-    </div>
-    <div class="output" id="output1"></div>
+        <div class="output" id="output1"></div>
     </div>
 </div>
 
 <!-- Group 2 -->
 <div class="group">
     <div class="block">
-        <h2>Consultar número total de árvores plantadas:</h2>
-    <div class="inputs">
-        <div class="input-item">
-        <input type="text" id="input2_1" placeholder="Carteira blockchain do cidadão..."></input>
+        <h2>Consultar número total de árvores plantadas</h2>
+        <div class="inputs">
+            <input type="text" id="input2_1" placeholder="Carteira blockchain do cidadão...">
+            <button class="green-button" id="button2">Enviar</button>
         </div>
-    </div>
-    <div class="input-row">
-        <button class="green-button" id="button2">Submit</button>
-    </div>
-    <div class="output" id="output2"></div>
+        <div class="output" id="output2"></div>
     </div>
 </div>
 
 <!-- Group 3 -->
 <div class="group">
     <div class="block">
-        <h2>Consultar quantidade total de créditos de IPTU:</h2>
-    <div class="inputs">
-        <div class="input-item">
-        <input type="text" id="input3_1" placeholder="Carteira blockchain do cidadão..."></input>
+        <h2>Consultar quantidade total de créditos de IPTU</h2>
+        <div class="inputs">
+            <input type="text" id="input3_1" placeholder="Carteira blockchain do cidadão...">
+            <button class="green-button" id="button3">Enviar</button>
         </div>
-    </div>
-    <div class="input-row">
-        <button class="green-button" id="button3">Submit</button>
-    </div>
-    <div class="output" id="output3"></div>
+        <div class="output" id="output3"></div>
     </div>
 </div>
 
 <!-- Group 4 -->
 <div class="group">
     <div class="block">
-        <h2>Transferir créditos de IPTU para um amigo:</h2>
-    <div class="inputs">
-        <div class="input-item">
-        <input type="text" id="input4_1" placeholder="Carteira blockchain do amigo..."></input>
+        <h2>Transferir créditos de IPTU para um amigo</h2>
+        <div class="inputs">
+            <input type="text" id="input4_1" placeholder="Carteira blockchain do amigo...">
+            <input type="text" id="input4_2" placeholder="Quantidade de créditos a transferir...">
+            <button class="green-button" id="button4">Enviar</button>
         </div>
-        <div class="input-item">
-        <input type="text" id="input4_2" placeholder="Quantidade de créditos a transferir..."></input>
-        </div>
-    </div>
-    <div class="input-row">
-        <button class="green-button" id="button4">Submit</button>
-    </div>
-    <div class="output" id="output4"></div>
+        <div class="output" id="output4"></div>
     </div>
 </div>
-<br>
-<br>
 
 <!-- Group 5 -->
 <div class="group">
     <div class="block">
-        <h2>Consultar saldo de tokens ETH da carteira:</h2>
-    <div class="inputs">
-        <div class="input-item">
-        <input type="text" id="input5_1" placeholder="Endereço da carteira..."></input>
+        <h2>Consultar saldo de tokens ETH da carteira</h2>
+        <div class="inputs">
+            <input type="text" id="input5_1" placeholder="Endereço da carteira...">
+            <button class="green-button" id="button5">Enviar</button>
         </div>
-    </div>
-    <div class="input-row">
-        <button class="green-button" id="button5">Submit</button>
-    </div>
-    <div class="output" id="output5"></div>
+        <div class="output" id="output5"></div>
     </div>
 </div>
 
 <!-- Group 6 -->
 <div class="group">
     <div class="block">
-        <h2>Consultar saldo de tokens CGT da carteira:</h2>
-    <div class="inputs">
-        <div class="input-item">
-        <input type="text" id="input6_1" placeholder="Endereço da carteira..."></input>
+        <h2>Consultar saldo de tokens CGT da carteira</h2>
+        <div class="inputs">
+            <input type="text" id="input6_1" placeholder="Endereço da carteira...">
+            <button class="green-button" id="button6">Enviar</button>
         </div>
-    </div>
-    <div class="input-row">
-        <button class="green-button" id="button6">Submit</button>
-    </div>
-    <div class="output" id="output6"></div>
+        <div class="output" id="output6"></div>
     </div>
 </div>
 
 <!-- Group 7 -->
 <div class="group">
     <div class="block">
-        <h2>Consultar saldo de tokens RIPTU da carteira:</h2>
-    <div class="inputs">
-        <div class="input-item">
-        <input type="text" id="input7_1" placeholder="Endereço da carteira..."></input>
+        <h2>Consultar saldo de tokens RIPTU da carteira</h2>
+        <div class="inputs">
+            <input type="text" id="input7_1" placeholder="Endereço da carteira...">
+            <button class="green-button" id="button7">Enviar</button>
         </div>
+        <div class="output" id="output7"></div>
     </div>
-    <div class="input-row">
-        <button class="green-button" id="button7">Submit</button>
-    </div>
-    <div class="output" id="output7"></div>
-    </div>
-</div>
-
-<div class="container">
-    <img src="./assets/pmrj.png" width="150" height="150"> </img>
 </div>
 
 <footer>
-<p>&copy; 2024 MASTER IN DIGITAL TRANSFORMATION</p>
+    <p>&copy; 2024 MASTER IN DIGITAL TRANSFORMATION</p>
+    <img src="./assets/pmrj.png" width="60" height="60" alt="PMRJ Logo">
 </footer>
 
 <script type="module" src="ethers.js"></script>

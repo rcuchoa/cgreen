@@ -4,7 +4,7 @@
   "ownerAddress": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
   "user1Address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
   "user2Address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
-  "contract_address_RioIPTUToken": "0xE6E340D132b5f46d1e472DebcD681B2aBc16e57E",
-  "contract_address_CariocaGreenTreeToken": "0xc3e53F4d16Ae77Db1c982e75a937B9f60FE63690",
-  "contract_address_CariocaGreenSC": "0x84eA74d481Ee0A5332c457a4d796187F6Ba67fEB"
+  "contract_address_RioIPTUToken": "0x1fA02b2d6A771842690194Cf62D91bdd92BfE28d",
+  "contract_address_CariocaGreenTreeToken": "0xdbC43Ba45381e02825b14322cDdd15eC4B3164E6",
+  "contract_address_CariocaGreenSC": "0x04C89607413713Ec9775E14b954286519d836FEf"
 }
