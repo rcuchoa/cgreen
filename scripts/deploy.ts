@@ -23,15 +23,15 @@ let addresses = {
                   "ownerAddress": "",
                   "user1Address": "",
                   "user2Address": "",
+                  "contract_address_CariocaGreenSC": "",
                   "contract_address_RioIPTUToken": "",
-                  "contract_address_CariocaGreenTreeToken": "",
-                  "contract_address_CariocaGreenSC": ""
+                  "contract_address_CariocaGreenTreeToken": ""
                 };
 
 let initialOwner = "";  
+let cariocaGreenSCAddress = "";
 let cariocaGreenTreeTokenSCAddress = "";
 let rioIPTUTokenSCAddress = "";
-let cariocaGreenSCAddress = "";
 
 switch (network) {
   case "sepolia": {
@@ -50,20 +50,6 @@ switch (network) {
 
 async function main() {
 
-  // Create Rio IPTU Token
-  const ContractFactoryRioIPTUToken = await ethers.getContractFactory("RioIPTUToken");
-  const instanceRioIPTUToken = await ContractFactoryRioIPTUToken.deploy(initialOwner);
-  await instanceRioIPTUToken.waitForDeployment();
-  rioIPTUTokenSCAddress = await instanceRioIPTUToken.getAddress();
-  console.log(`Contract Rio IPTU Token deployed to ${rioIPTUTokenSCAddress}`);
-
-  // Create Carioca Green Tree NFT
-  const ContractFactoryCariocaGreenTreeToken = await ethers.getContractFactory("CariocaGreenTreeToken");
-  const instanceCariocaGreenTreeToken = await ContractFactoryCariocaGreenTreeToken.deploy(initialOwner);
-  await instanceCariocaGreenTreeToken.waitForDeployment();
-  cariocaGreenTreeTokenSCAddress = await instanceCariocaGreenTreeToken.getAddress();
-  console.log(`Contract Carioca Green Tree Token deployed to ${cariocaGreenTreeTokenSCAddress}`);
-
   // Create  Carioca Green Smart Contract
   const ContractFactoryCariocaGreenSC = await ethers.getContractFactory("CariocaGreenSC");
   const instanceCariocaGreenSC = await ContractFactoryCariocaGreenSC.deploy(creditsPerPlantedTree);
@@ -71,19 +57,33 @@ async function main() {
   cariocaGreenSCAddress = await instanceCariocaGreenSC.getAddress();
   console.log(`Contract Carioca Green deployed to ${cariocaGreenSCAddress}`);
 
+  // // Create Rio IPTU Token
+  // const ContractFactoryRioIPTUToken = await ethers.getContractFactory("RioIPTUToken");
+  // const instanceRioIPTUToken = await ContractFactoryRioIPTUToken.deploy(initialOwner);
+  // await instanceRioIPTUToken.waitForDeployment();
+  // rioIPTUTokenSCAddress = await instanceRioIPTUToken.getAddress();
+  // console.log(`Contract Rio IPTU Token deployed to ${rioIPTUTokenSCAddress}`);
+
+  // // Create Carioca Green Tree NFT
+  // const ContractFactoryCariocaGreenTreeToken = await ethers.getContractFactory("CariocaGreenTreeToken");
+  // const instanceCariocaGreenTreeToken = await ContractFactoryCariocaGreenTreeToken.deploy(initialOwner);
+  // await instanceCariocaGreenTreeToken.waitForDeployment();
+  // cariocaGreenTreeTokenSCAddress = await instanceCariocaGreenTreeToken.getAddress();
+  // console.log(`Contract Carioca Green Tree Token deployed to ${cariocaGreenTreeTokenSCAddress}`);
+
   console.log("\n");
 
   console.log("Deploying to network:          ", network);
-  console.log("Owner Address:                 ", initialOwner);  
-  console.log("RioIPTUToken Address:          ", rioIPTUTokenSCAddress);
-  console.log("CariocaGreenTreeToken Address: ", cariocaGreenTreeTokenSCAddress);
+  console.log("Owner Address:                 ", initialOwner); 
   console.log("CariocaGreenSC Address:        ", cariocaGreenSCAddress);
+  //console.log("RioIPTUToken Address:          ", rioIPTUTokenSCAddress);
+  //console.log("CariocaGreenTreeToken Address: ", cariocaGreenTreeTokenSCAddress);
 
   addresses['networkName'] = network;
   addresses['ownerAddress'] = initialOwner;
-  addresses['contract_address_RioIPTUToken'] = rioIPTUTokenSCAddress;
-  addresses['contract_address_CariocaGreenTreeToken'] = cariocaGreenTreeTokenSCAddress;
   addresses['contract_address_CariocaGreenSC'] = cariocaGreenSCAddress;
+  //addresses['contract_address_RioIPTUToken'] = rioIPTUTokenSCAddress;
+  //addresses['contract_address_CariocaGreenTreeToken'] = cariocaGreenTreeTokenSCAddress;
 
   switch (network) {
     case "sepolia": {
@@ -148,14 +148,14 @@ async function main() {
 //       console.log(`Command output: ${stdout}`);
 //   });
 
-//   // Copy contracts ABI files to src/assets directory
-//   try {
-//     fs.copyFileSync("./artifacts/contracts/RioIPTUToken.sol/RioIPTUToken.json", "./src/assets/RioIPTUToken.json");
-//     fs.copyFileSync("./artifacts/contracts/CariocaGreenTreeToken.sol/CariocaGreenTreeToken.json", "./src/assets/CariocaGreenTreeToken.json");
-//     fs.copyFileSync("./artifacts/contracts/CariocaGreenSC.sol/CariocaGreenSC.json", "./src/assets/CariocaGreenSC.json");
-//   } catch (error) {
-//     console.error('Error writing file addresses.json:', error);
-//   }
+  // Copy contracts ABI files to src/assets directory
+  try {
+    fs.copyFileSync("./artifacts/contracts/CariocaGreenSC.sol/CariocaGreenSC.json", "./src/assets/CariocaGreenSC.json");
+    fs.copyFileSync("./artifacts/contracts/RioIPTUToken.sol/RioIPTUToken.json", "./src/assets/RioIPTUToken.json");
+    fs.copyFileSync("./artifacts/contracts/CariocaGreenTreeToken.sol/CariocaGreenTreeToken.json", "./src/assets/CariocaGreenTreeToken.json");
+  } catch (error) {
+    console.error('Error writing file addresses.json:', error);
+  }
 
 };
 

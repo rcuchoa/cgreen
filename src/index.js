@@ -1,4 +1,3 @@
-//import { ethers } from "./ethers-5.2.esm.min.js";
 import { ethers } from "./ethers.js";
 
 
@@ -28,17 +27,10 @@ let signer = {};
 
 //***************************** ETHER MISC FUNCTIONS *****************************/
 
-// Create Provider and Signer to be used in all blockchain transaction thru Metamask
-// async function connectToMetamask () {
-//     provider = new ethers.providers.Web3Provider(window.ethereum)
-//         .then(()=>{
-//             signer = provider.getSigner();
-//             console.log("DEBUG: SUCCESS: SIGNER CREATED: ", signer);
-//         })
-//         .catch((_error)=>{
-//             console.log("DEBUG: ERROR: PROVIDER NOT CREATED ", _error);
-//         });
-// };
+function delay(milliseconds) {
+    const start = Date.now();
+    while (Date.now() - start < milliseconds) {}
+};
 
 async function connectToMetamask () {
     try {
@@ -48,12 +40,14 @@ async function connectToMetamask () {
     } catch (error) {
         console.log("DEBUG: ERROR: PROVIDER NOT CREATED ", error);
     }
-}
+};
 
+
+//aaaaa
 
 // Read addresses for blockchain users and contracts from json file
 async function fetchAddresses() {
-    await fetch('http://localhost:3000/assets/addresses.json')
+    return fetch('http://localhost:3000/assets/addresses.json')
             .then(_addressesJson => {
                 return _addressesJson.json();
             })
@@ -63,18 +57,35 @@ async function fetchAddresses() {
                 ownerAddress = addresses['ownerAddress'];
                 user1Address = addresses['user1Address'];
                 user2Address = addresses['user2Address'];
+                contract_address_CariocaGreenSC = addresses['contract_address_CariocaGreenSC'];
                 contract_address_RioIPTUToken = addresses['contract_address_RioIPTUToken'];
                 contract_address_CariocaGreenTreeToken = addresses['contract_address_CariocaGreenTreeToken'];
-                contract_address_CariocaGreenSC = addresses['contract_address_CariocaGreenSC'];
                 console.log("DEBUG: SUCCESS: ADDRESSES FETCHED: ", addresses);
             })
             .catch(error => {
                 console.log("DEBUG: ERROR: ADDRESSES NOT FETCHED: ", error);
             });
-};
+}
 
 // Get all addresses for blockchain users and contracts
-await fetchAddresses();               
+async function getContractAddresses() {
+    return new Promise((resolve, reject) => {
+        Promise.all([
+            getRioIPTUTokenAddress(),
+            getCariocaGreenTreeTokenAddress()
+        ])
+        .then(([_contract_address_RioIPTUToken, _contract_address_CariocaGreenTreeToken]) => {
+            contract_address_RioIPTUToken = _contract_address_RioIPTUToken;
+            contract_address_CariocaGreenTreeToken = _contract_address_CariocaGreenTreeToken;
+            console.log("DEBUG: SUCCESS: getContractAddresses(): ", contract_address_RioIPTUToken, contract_address_CariocaGreenTreeToken);
+            resolve((contract_address_RioIPTUToken, contract_address_CariocaGreenTreeToken));
+        })
+        .catch(error => {
+            console.log("DEBUG: ERROR: getContractAddresses(): ", error);
+            reject("NOT OK");
+        });
+    });
+};
 
 // Read Smart Contract ABI from file
 async function fetchABI(_url) {
@@ -91,81 +102,231 @@ async function fetchABI(_url) {
     }
 };
 
-//  Initialize Smart Contract
-async function initContract(_address, _abi_url) {
-    const _abi = await fetchABI(_abi_url);
-    console.log("DEBUG: INIT CONTRACT PARAMS: ", _address, _abi_url, _abi, signer);
-    const _contract = new ethers.Contract(_address, _abi, signer);
-    return _contract;
+// Initialize Smart Contract
+async function initContractCariocaGreenSC() {
+    const _abi = await fetchABI(abi_url_CariocaGreenSC);
+    console.log("DEBUG: INIT CONTRACT PARAMS: ", contract_address_CariocaGreenSC, abi_url_CariocaGreenSC, _abi, signer);
+    const _contract = new ethers.Contract(contract_address_CariocaGreenSC, _abi, signer);
+    if (_contract) {
+        return _contract;
+    } else {
+        throw new Error(`DEBUG: ERROR: CONTRACT INIT ERROR: CariocaGreenSC`);
+    }
 };
 
-//  Initialize all project Smart Contracts
-export async function initAllContracts () {
-  await initContract(contract_address_RioIPTUToken, abi_url_RioIPTUToken)
-      .then(_contract => {
-          contract_RioIPTUToken = _contract;
-          console.log("DEBUG: SUCCESS: CONTRACT (RioIPTUToken) INITIALIZED: ", contract_RioIPTUToken)
-      })
-      .catch(error => {
-          console.log("DEBUG: ERROR: CONTRACT (RioIPTUToken) NOT INITIALIZED: ", error)
-      });
-  await initContract(contract_address_CariocaGreenTreeToken, abi_url_CariocaGreenTreeToken)
-      .then((_contract) => {
-          contract_CariocaGreenTreeToken = _contract;
-          console.log("DEBUG: SUCCESS: CONTRACT (CariocaGreenTreeToken) INITIALIZED: ", contract_CariocaGreenTreeToken)
-      })
-      .catch(error => {
-          console.log("DEBUG: ERROR: CONTRACT (CariocaGreenTreeToken) NOT INITIALIZED: ", error)
-      });
-  await initContract(contract_address_CariocaGreenSC, abi_url_CariocaGreenSC)
-      .then((_contract) => {
-          contract_CariocaGreenSC = _contract;
-          console.log("DEBUG: SUCCESS: CONTRACT (CariocaGreenSC) INITIALIZED: ", contract_CariocaGreenSC);
-      })
-      .catch(error => {
-          console.log("DEBUG: ERROR: CONTRACT (CariocaGreenSC) NOT INITIALIZED: ", error);
-      });
+// Initialize Smart Contract
+async function initContractRioIPTUToken() {
+    const _abi = await fetchABI(abi_url_RioIPTUToken);
+    console.log("DEBUG: INIT CONTRACT PARAMS: ", contract_address_RioIPTUToken, abi_url_RioIPTUToken, _abi, signer);
+    const _contract = new ethers.Contract(contract_address_RioIPTUToken, _abi, signer);
+    if (_contract) {
+        return _contract;
+    } else {
+        throw new Error(`DEBUG: ERROR: CONTRACT INIT ERROR: RioIPTUToken`);
+    }
+};
+
+// Initialize Smart Contract
+async function initContractCariocaGreenTreeToken() {
+    const _abi = await fetchABI(abi_url_CariocaGreenTreeToken);
+    console.log("DEBUG: INIT CONTRACT PARAMS: ", contract_address_CariocaGreenTreeToken, abi_url_CariocaGreenTreeToken, _abi, signer);
+    const _contract = new ethers.Contract(contract_address_CariocaGreenTreeToken, _abi, signer);
+    if (_contract) {
+        return _contract;
+    } else {
+        throw new Error(`DEBUG: ERROR: CONTRACT INIT ERROR: CariocaGreenTreeToken`);
+    }
 };
 
 //  Switch blockchain network on Metamask
 async function switchNetwork(_chainId) {
 
-  const customNetwork = {
-    chainId: `0x${_chainId.toString(16)}`
+    const customNetwork = {
+      chainId: `0x${_chainId.toString(16)}`
+    };
+  
+    try {
+        await window.ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [customNetwork],
+        });
+        console.log('DEBUG: SUCCESS: NETWORK SWITCHED: ');
+    } catch (error) {
+        console.error('DEBUG: ERROR: NETWORK NOT SWITCHED: ', error);
+    }
   };
-
-  try {
-      await window.ethereum.request({
-          method: 'wallet_switchEthereumChain',
-          params: [customNetwork],
+  
+  //  Connect to a blockchain network on Metamask
+  export async function connectToDesiredBlockchainNetwork(_desiredNetworkName, _chainID) {
+  
+    await provider.getNetwork()
+      .then((_network) => {
+        console.log(_network.name);
+        return _network.name;
+      })
+      .then((_networkName) => {
+        if (_networkName.toLowerCase() !== _desiredNetworkName.toLowerCase()) {
+          console.log(`DEBUG: METAMASK IS CONNECTED TO NETWORK ${_networkName}.`);
+          console.log(`DEBUG: SWITCHING TO NETWORK ${_desiredNetworkName}.`);
+          switchNetwork(_chainID);
+        } else {
+          console.log(`DEBUG: METAMASK IS CONNECTED TO NETWORK ${_desiredNetworkName}.`);
+        }
+      })
+      .catch((_error) => {
+        console.log("DEBUG: ERROR: COULD NOT GET METAMASK NETWORK", _error);
       });
-      console.log('DEBUG: SUCCESS: NETWORK SWITCHED: ');
-  } catch (error) {
-      console.error('DEBUG: ERROR: NETWORK NOT SWITCHED: ', error);
-  }
-};
+  };
+  
 
-//  Connect to a blockchain network on Metamask
-export async function connectToBlockchain(_desiredNetworkName, _chainID) {
+// Initialize all project Smart Contracts
+export async function initBlockchain() {
+    try {
+        await connectToMetamask();
+        await fetchAddresses();
 
-  await provider.getNetwork()
-    .then((_network) => {
-      console.log(_network.name);
-      return _network.name;
-    })
-    .then((_networkName) => {
-      if (_networkName.toLowerCase() !== _desiredNetworkName.toLowerCase()) {
-        console.log(`DEBUG: METAMASK IS CONNECTED TO NETWORK ${_networkName}.`);
-        console.log(`DEBUG: SWITCHING TO NETWORK ${_desiredNetworkName}.`);
-        switchNetwork(_chainID);
-      } else {
-        console.log(`DEBUG: METAMASK IS CONNECTED TO NETWORK ${_desiredNetworkName}.`);
-      }
-    })
-    .catch((_error) => {
-      console.log("DEBUG: ERROR: COULD NOT GET METAMASK NETWORK", _error);
-    });
-};
+        contract_CariocaGreenSC = await initContractCariocaGreenSC();
+        console.log("DEBUG: SUCCESS: CONTRACT (CariocaGreenSC) INITIALIZED: ", contract_CariocaGreenSC);
+
+        await getContractAddresses();
+
+        contract_RioIPTUToken = await initContractRioIPTUToken();
+        console.log("DEBUG: SUCCESS: CONTRACT (RioIPTUToken) INITIALIZED: ", contract_RioIPTUToken);
+
+        contract_CariocaGreenTreeToken = await initContractCariocaGreenTreeToken();
+        console.log("DEBUG: SUCCESS: CONTRACT (CariocaGreenTreeToken) INITIALIZED: ", contract_CariocaGreenTreeToken);
+        
+        await connectToDesiredBlockchainNetwork(networkName, chainID);
+
+    } catch (error) {
+        console.log("DEBUG: ERROR: CONTRACTS NOT CREATED: ", error);
+    }
+}
+
+
+//aaaaa
+
+
+// // Read addresses for blockchain users and contracts from json file
+// async function fetchAddresses() {
+//     await fetch('http://localhost:3000/assets/addresses.json')
+//             .then(_addressesJson => {
+//                 return _addressesJson.json();
+//             })
+//             .then(addresses => {
+//                 networkName = addresses['networkName'];
+//                 chainID = addresses['chainID'];
+//                 ownerAddress = addresses['ownerAddress'];
+//                 user1Address = addresses['user1Address'];
+//                 user2Address = addresses['user2Address'];
+//                 contract_address_RioIPTUToken = addresses['contract_address_RioIPTUToken'];
+//                 contract_address_CariocaGreenTreeToken = addresses['contract_address_CariocaGreenTreeToken'];
+//                 contract_address_CariocaGreenSC = addresses['contract_address_CariocaGreenSC'];
+//                 console.log("DEBUG: SUCCESS: ADDRESSES FETCHED: ", addresses);
+//             })
+//             .catch(error => {
+//                 console.log("DEBUG: ERROR: ADDRESSES NOT FETCHED: ", error);
+//             });
+// };
+
+// // Get all addresses for blockchain users and contracts
+// await fetchAddresses();               
+
+// // Read Smart Contract ABI from file
+// async function fetchABI(_url) {
+//     try {
+//       const response = await fetch(_url);
+//       if (!response.ok) {
+//         throw new Error('DEBUG: ERROR: COULD NOT FETCH ABI FILE: NETWORK ERROR');
+//       }
+//       const data = await response.json();
+//       return data['abi'];
+//     } catch (error) {
+//       console.error('DEBUG: ERROR: COULD NOT PARSE ABI FILE:', error);
+//       throw error;
+//     }
+// };
+
+// export async function getContractAddresses () {
+
+//     return Promise ((resolve, reject) => {
+
+//         getRioIPTUTokenAddress()
+//             .then((_result)=> {
+//                 contract_address_RioIPTUToken = _result;
+//                 console.log("DEBUG: SUCCESS: getContractAddresses(): RioIPTUToken: ", contract_address_RioIPTUToken);
+//                 resolve ("OK");
+//             })
+//             .catch((_error) => {
+//                 console.log("DEBUG: ERROR: getContractAddresses(): ",_error);
+//                 reject ("NOT");
+//             });
+
+//         getCariocaGreenTreeTokenAddress()
+//             .then((_result)=> {
+//                 contract_address_CariocaGreenTreeToken = _result;
+//                 console.log("DEBUG: SUCCESS: getContractAddresses(): RioIPTUToken: ", contract_address_CariocaGreenTreeToken);
+//                 resolve ("OK");
+//             })
+//             .catch((_error) => {
+//                 console.log("DEBUG: ERROR: getContractAddresses(): ",_error);
+//                 reject ("NOK");
+//             });
+//     });
+// };
+
+// //  Initialize Smart Contract
+// async function initContract(_address, _abi_url) {
+//     return Promise ((resolve, reject) => {
+//         const _abi = fetchABI(_abi_url);
+//         console.log("DEBUG: INIT CONTRACT PARAMS: ", _address, _abi_url, _abi, signer);
+//         const _contract = new ethers.Contract(_address, _abi, signer);
+//         if (_contract) {
+//             resolve (_contract);
+//         } else {
+//             reject (`DEBUG: ERROR: CONTRACT INIT ERROR: ${_abi_url}`);
+//         }
+//     });
+// };
+
+// //  Initialize all project Smart Contracts
+// export async function initContracts () {
+//   await getContractAddresses()
+//         .then(() => {
+//             initContract(contract_address_RioIPTUToken, abi_url_RioIPTUToken)
+//                 .then(_contract => {
+//                     contract_RioIPTUToken = _contract;
+//                     console.log("DEBUG: SUCCESS: CONTRACT (RioIPTUToken) INITIALIZED: ", contract_RioIPTUToken);
+//                 })
+//                 .catch(_error => {
+//                     console.log("DEBUG: ERROR: CONTRACT (RioIPTUToken) NOT INITIALIZED: ", _error)
+//                 });
+//         })
+//         .then(() => {    
+//             initContract(contract_address_CariocaGreenTreeToken, abi_url_CariocaGreenTreeToken)
+//                 .then(_contract => {
+//                     contract_CariocaGreenTreeToken = _contract;
+//                     console.log("DEBUG: SUCCESS: CONTRACT (CariocaGreenTreeToken) INITIALIZED: ", contract_CariocaGreenTreeToken)
+//                 })
+//                 .catch(_error => {
+//                     console.log("DEBUG: ERROR: CONTRACT (CariocaGreenTreeToken) NOT INITIALIZED: ", _error)
+//                 });
+//          })
+//          .then(() => {
+//             initContract(contract_address_CariocaGreenSC, abi_url_CariocaGreenSC)
+//                 .then(_contract => {
+//                     contract_CariocaGreenSC = _contract;
+//                     console.log("DEBUG: SUCCESS: CONTRACT (CariocaGreenSC) INITIALIZED: ", contract_CariocaGreenSC)
+//                 })
+//                 .catch(_error => {
+//                     console.log("DEBUG: ERROR: CONTRACT (CariocaGreenSC) NOT INITIALIZED: ", _error)
+//                 });
+//          })
+//          .catch((_error) => {
+//             console.log("DEBUG: ERROR: CONTRACTS NOT CREATED: ", _error)
+//          });
+// };
+
 
 // export function getConnectedAccount () {
 //     // Check if MetaMask is installed and enabled
@@ -308,21 +469,148 @@ export async function getTotalCredits(_address) {
         });
 }
 
-export async function getBalance(_contract) {
-    console.log("DEBUG: getBalance(_contract): ", _contract);    
+// export async function getBalance(_contract) {
+//     console.log("DEBUG: getBalance(_contract): ", _contract);    
+//     return new Promise((resolve, reject) => {
+//         console.log("DEBUG: ", _contract);
+//         _contract.connect(signer).getBalance()
+//             .then(_result => {
+//                 console.log("DEBUG: SUCCESS: getBalance(_contract): ", _result);
+//                 resolve(_result);
+//             })
+//             .catch(_error => {
+//                 console.log("DEBUG: ERROR: getBalance(_contract): ", _error);
+//                 reject (new Error ('Contract call getBalance error!'));
+//             });
+//         });
+// }
+
+// // export async function getCariocaGreenTreeTokenAddress() {
+// //     console.log("DEBUG: getCariocaGreenTreeTokenAddress(): ");    
+// //     return new Promise((resolve, reject) => {
+// //         contract_CariocaGreenSC.getCariocaGreenTreeTokenAddress()
+//             .then(_result => {
+//                 console.log("DEBUG: SUCCESS: getCariocaGreenTreeTokenAddress(): ", _result);
+//                 resolve(_result);
+//             })
+//             .catch(_error => {
+//                 console.log("DEBUG: ERROR: getCariocaGreenTreeTokenAddress(): ", _error);
+//                 reject (new Error ('Contract call getCariocaGreenTreeTokenAddress error!'));
+//             });
+//         });
+// }
+
+// export async function getRioIPTUTokenAddress() {
+//     console.log("DEBUG: getRioIPTUTokenAddress(): ");    
+//     return new Promise((resolve, reject) => {
+//         contract_CariocaGreenSC.getRioIPTUTokenAddress()
+//             .then(_result => {
+//                 console.log("DEBUG: SUCCESS: getRioIPTUTokenAddress(): ", _result);
+//                 resolve(_result);
+//             })
+//             .catch(_error => {
+//                 console.log("DEBUG: ERROR: getRioIPTUTokenAddress(): ", _error);
+//                 reject (new Error ('Contract call getRioIPTUTokenAddress error!'));
+//             });
+//         });
+// }
+
+// export async function getCariocaGreenTreeTokenAddress() {
+//     console.log("DEBUG: getCariocaGreenTreeTokenAddress(): ");    
+//     try {
+//         const result = await contract_CariocaGreenSC.getCariocaGreenTreeTokenAddress();
+//         console.log("DEBUG: SUCCESS: getCariocaGreenTreeTokenAddress(): ", result);
+//         return result;
+//     } catch (error) {
+//         console.log("DEBUG: ERROR: getCariocaGreenTreeTokenAddress(): ", error);
+//         throw new Error('Contract call getCariocaGreenTreeTokenAddress error!');
+//     }
+// }
+
+// export async function getRioIPTUTokenAddress() {
+//     console.log("DEBUG: getRioIPTUTokenAddress(): ", contract_CariocaGreenSC);    
+//     try {
+//         const result = await contract_CariocaGreenSC.getRioIPTUTokenAddress();
+//         console.log("DEBUG: SUCCESS: getRioIPTUTokenAddress(): ", result);
+//         return result;
+//     } catch (error) {
+//         console.log("DEBUG: ERROR: getRioIPTUTokenAddress(): ", error);
+//         throw new Error('Contract call getRioIPTUTokenAddress error!');
+//     }
+// }
+
+// export async function getContractAddresses () {
+//     try {
+//         contract_address_RioIPTUToken = await getRioIPTUTokenAddress();
+//         contract_address_CariocaGreenTreeToken = await getCariocaGreenTreeTokenAddress(); 
+//         console.log("DEBUG: SUCCESS: getContractAddresses(): ");
+//     } catch (error) {
+//         console.log("DEBUG: ERROR: getContractAddresses(): ", error);
+//     }
+// };
+
+export async function getCariocaGreenTreeTokenAddress() {
+    console.log("DEBUG: getCariocaGreenTreeTokenAddress(): ", contract_CariocaGreenSC);    
     return new Promise((resolve, reject) => {
-        console.log("DEBUG: ", _contract);
-        _contract.connect(signer).getBalance()
+        contract_CariocaGreenSC.getCariocaGreenTreeTokenAddress()
             .then(_result => {
-                console.log("DEBUG: SUCCESS: getBalance(_contract): ", _result);
+                console.log("DEBUG: SUCCESS: getCariocaGreenTreeTokenAddress(): ", _result);
                 resolve(_result);
             })
             .catch(_error => {
-                console.log("DEBUG: ERROR: getBalance(_contract): ", _error);
-                reject (new Error ('Contract call getBalance error!'));
+                console.log("DEBUG: ERROR: getCariocaGreenTreeTokenAddress(): ", _error);
+                reject('Contract call getCariocaGreenTreeTokenAddress error!');
             });
-        });
+    });
 }
+
+export async function getRioIPTUTokenAddress() {
+    console.log("DEBUG: getRioIPTUTokenAddress(): ", contract_CariocaGreenSC);    
+    return new Promise((resolve, reject) => {
+        contract_CariocaGreenSC.getRioIPTUTokenAddress()
+            .then(_result => {
+                console.log("DEBUG: SUCCESS: getRioIPTUTokenAddress(): ", _result);
+                resolve(_result);
+            })
+            .catch(_error => {
+                console.log("DEBUG: ERROR: getRioIPTUTokenAddress(): ", _error);
+                reject('Contract call getRioIPTUTokenAddress error!');
+            });
+    });
+};
+
+export async function getCariocaGreenTreeTokenBalance() {
+    console.log("DEBUG: getCariocaGreenTreeTokenBalance(): ", contract_CariocaGreenSC);    
+    return new Promise((resolve, reject) => {
+        contract_CariocaGreenSC.getCariocaGreenTreeTokenBalance()
+            .then(_result => {
+                console.log("DEBUG: SUCCESS: getCariocaGreenTreeTokenBalance(): ", _result);
+                resolve(_result);
+            })
+            .catch(_error => {
+                console.log("DEBUG: ERROR: getCariocaGreenTreeTokenBalance(): ", _error);
+                reject('Contract call getCariocaGreenTreeTokenBalance error!');
+            });
+    });
+};
+
+export async function getRioIPTUTokenBalance() {
+    console.log("DEBUG: getRioIPTUTokenBalance(): ", contract_CariocaGreenSC);    
+    return new Promise((resolve, reject) => {
+        contract_CariocaGreenSC.getRioIPTUTokenBalance()
+            .then(_result => {
+                console.log("DEBUG: SUCCESS: getRioIPTUTokenBalance(): ", _result);
+                resolve(_result);
+            })
+            .catch(_error => {
+                console.log("DEBUG: ERROR: getRioIPTUTokenBalance(): ", _error);
+                reject('Contract call getRioIPTUTokenBalance error!');
+            });
+    });
+};
+
+
+
 
 //***************************** CALLBACK FUNCTIONS *****************************/
 
@@ -331,10 +619,8 @@ document.getElementById('connectMetamask').addEventListener('click', function(ev
     event.preventDefault();
     if (window.ethereum) {
         console.log("DEBUG: connectMetamask: ", networkName, chainID, provider, signer);
-        fetchAddresses();                               // Fetch blockchain address from file created during deploy
-        connectToMetamask();                            // Create provider and signer
-        connectToBlockchain(networkName, chainID);      // Connect to desired blockchain network
-        initAllContracts();                             // Initialize all smart contracts
+        initBlockchain();                                // Initialize Blockchain network
+        console.log("DEBUG: CONTRACTS ADDRESSES:", contract_address_CariocaGreenSC, contract_address_RioIPTUToken, contract_address_CariocaGreenTreeToken);
         document.getElementById('connectOutput').textContent = `Conectado à Metamask! Network: ${networkName} ChainID: ${chainID})!`;
     } else {
         document.getElementById('connectOutput').textContent = "Metamask não instalado!";
@@ -430,8 +716,8 @@ document.getElementById('button6').addEventListener('click', function(event) {
     let input6_1 = document.getElementById('input6_1').value;
     //if (!input6_1) {input6_1 = getConnectedAccount()};
     if (!input6_1) {input6_1 = ownerAddress};
-    console.log('DEBUG: CALLBACK_GRUPO6:', input6_1, contract_CariocaGreenTreeToken);
-    getBalance(contract_CariocaGreenTreeToken, input6_1)
+    console.log('DEBUG: CALLBACK_GRUPO6:', input6_1, contract_CariocaGreenSC);
+    getBalance(contract_CariocaGreenSC, input6_1)
         .then(_value => {
             document.getElementById('output6').textContent = `Saldo de tokens CGT: ${_value}`;
         })
@@ -446,8 +732,8 @@ document.getElementById('button7').addEventListener('click', function(event) {
     let input7_1 = document.getElementById('input7_1').value;
     //if (!input7_1) {input7_1 = getConnectedAccount()};
     if (!input7_1) {input7_1 = ownerAddress};
-    console.log('DEBUG: CALLBACK_GRUPO7:', input7_1, contract_RioIPTUToken);
-    getBalance(contract_RioIPTUToken, input7_1)
+    console.log('DEBUG: CALLBACK_GRUPO7:', input7_1, contract_CariocaGreenSC);
+    getBalance(contract_CariocaGreenSC, input7_1)
         .then(_value => {
             document.getElementById('output7').textContent = `Saldo de tokens RIPTU: ${_value}`;
         })
@@ -455,3 +741,18 @@ document.getElementById('button7').addEventListener('click', function(event) {
             document.getElementById('output7').textContent = `Erro na leitura de tokens RIPTU!`;
         });
 });
+
+// //-- Group 7 --//
+// document.getElementById('button7').addEventListener('click', function(event) {
+//     event.preventDefault();
+//     let input7_1 = document.getElementById('input7_1').value;
+//     if (!input7_1) {input7_1 = ownerAddress};
+//     console.log('DEBUG: CALLBACK_GRUPO7:', input7_1, contract_RioIPTUToken);
+//     try {
+//         _value = getCariocaGreenTreeTokenAddress();
+//         document.getElementById('output7').textContent = `Saldo de tokens RIPTU: ${_value}`;
+
+//     } catch {
+//         document.getElementById('output7').textContent = `Erro na leitura de tokens RIPTU!`;
+//     };
+// });
