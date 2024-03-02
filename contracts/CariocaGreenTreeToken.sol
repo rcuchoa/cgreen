@@ -5,11 +5,11 @@ pragma solidity ^0.8.20;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Pausable.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/Context.sol";
 
-/// @custom:security-contact rcuchoa@gmail.com
-contract CariocaGreenTreeToken is ERC721, ERC721Enumerable, ERC721Pausable, Ownable, ERC721Burnable {
+contract CariocaGreenTreeToken is ERC721, ERC721Enumerable, ERC721Pausable, ERC721Burnable, Ownable {
     uint256 private _nextTokenId;
 
     constructor(address initialOwner)
@@ -17,16 +17,16 @@ contract CariocaGreenTreeToken is ERC721, ERC721Enumerable, ERC721Pausable, Owna
         Ownable(initialOwner)
     {}
 
+    function _baseURI() internal pure override returns (string memory) {
+        return "https://riodejaneiro.gov.br";
+    }
+
     function pause() public onlyOwner {
         _pause();
     }
 
     function unpause() public onlyOwner {
         _unpause();
-    }
-
-    function getBalance() public onlyOwner {
-        getBalance();
     }
 
     function safeMint(address to) public onlyOwner {

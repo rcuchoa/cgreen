@@ -52,24 +52,24 @@ async function main() {
 
   // Create  Carioca Green Smart Contract
   const ContractFactoryCariocaGreenSC = await ethers.getContractFactory("CariocaGreenSC");
-  const instanceCariocaGreenSC = await ContractFactoryCariocaGreenSC.deploy(creditsPerPlantedTree);
+  const instanceCariocaGreenSC = await ContractFactoryCariocaGreenSC.deploy(initialOwner, creditsPerPlantedTree);
   await instanceCariocaGreenSC.waitForDeployment();
   cariocaGreenSCAddress = await instanceCariocaGreenSC.getAddress();
-  console.log(`Contract Carioca Green deployed to ${cariocaGreenSCAddress}`);
+  console.log(`Contract CariocaGreenSC deployed to ${cariocaGreenSCAddress}`);
 
-  // // Create Rio IPTU Token
-  // const ContractFactoryRioIPTUToken = await ethers.getContractFactory("RioIPTUToken");
-  // const instanceRioIPTUToken = await ContractFactoryRioIPTUToken.deploy(initialOwner);
-  // await instanceRioIPTUToken.waitForDeployment();
-  // rioIPTUTokenSCAddress = await instanceRioIPTUToken.getAddress();
-  // console.log(`Contract Rio IPTU Token deployed to ${rioIPTUTokenSCAddress}`);
+  // Create Rio IPTU Token
+  const ContractFactoryRioIPTUToken = await ethers.getContractFactory("RioIPTUToken");
+  const instanceRioIPTUToken = await ContractFactoryRioIPTUToken.deploy(initialOwner);
+  await instanceRioIPTUToken.waitForDeployment();
+  rioIPTUTokenSCAddress = await instanceRioIPTUToken.getAddress();
+  console.log(`Contract RioIPTUToken deployed to ${rioIPTUTokenSCAddress}`);
 
-  // // Create Carioca Green Tree NFT
-  // const ContractFactoryCariocaGreenTreeToken = await ethers.getContractFactory("CariocaGreenTreeToken");
-  // const instanceCariocaGreenTreeToken = await ContractFactoryCariocaGreenTreeToken.deploy(initialOwner);
-  // await instanceCariocaGreenTreeToken.waitForDeployment();
-  // cariocaGreenTreeTokenSCAddress = await instanceCariocaGreenTreeToken.getAddress();
-  // console.log(`Contract Carioca Green Tree Token deployed to ${cariocaGreenTreeTokenSCAddress}`);
+  // Create Carioca Green Tree NFT
+  const ContractFactoryCariocaGreenTreeToken = await ethers.getContractFactory("CariocaGreenTreeToken");
+  const instanceCariocaGreenTreeToken = await ContractFactoryCariocaGreenTreeToken.deploy(initialOwner);
+  await instanceCariocaGreenTreeToken.waitForDeployment();
+  cariocaGreenTreeTokenSCAddress = await instanceCariocaGreenTreeToken.getAddress();
+  console.log(`Contract CariocaGreenTreeToken deployed to ${cariocaGreenTreeTokenSCAddress}`);
 
   console.log("\n");
 
@@ -82,8 +82,8 @@ async function main() {
   addresses['networkName'] = network;
   addresses['ownerAddress'] = initialOwner;
   addresses['contract_address_CariocaGreenSC'] = cariocaGreenSCAddress;
-  //addresses['contract_address_RioIPTUToken'] = rioIPTUTokenSCAddress;
-  //addresses['contract_address_CariocaGreenTreeToken'] = cariocaGreenTreeTokenSCAddress;
+  addresses['contract_address_RioIPTUToken'] = rioIPTUTokenSCAddress;
+  addresses['contract_address_CariocaGreenTreeToken'] = cariocaGreenTreeTokenSCAddress;
 
   switch (network) {
     case "sepolia": {
@@ -94,14 +94,14 @@ async function main() {
       break;
     }
     case "localhost": {
-      addresses['chainID'] = 31337;
+      addresses['chainID'] = 88888;
       addresses['ownerAddress'] = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266';  // HardHat Node Account #0
       addresses['user1Address'] = '0x70997970C51812dc3A010C7d01b50e0d17dc79C8';  // HardHat Node Account #1
       addresses['user2Address'] = '0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC';  // HardHat Node Account #2
       break;
     }
     default: {
-      addresses['chainID'] = 31337;
+      addresses['chainID'] = 88888;
       addresses['ownerAddress'] = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266';  // HardHat Node Account #0
       addresses['user1Address'] = '0x70997970C51812dc3A010C7d01b50e0d17dc79C8';  // HardHat Node Account #1
       addresses['user2Address'] = '0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC';  // HardHat Node Account #2

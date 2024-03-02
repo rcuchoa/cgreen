@@ -3,19 +3,20 @@
 pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Pausable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 /// @custom:security-contact rcuchoa@gmail.com
-contract RioIPTUToken is ERC20, ERC20Pausable, Ownable {
-    constructor(address _initialOwner)
+contract RioIPTUToken is ERC20, ERC20Burnable, ERC20Pausable, Ownable {
+    constructor(address initialOwner)
         ERC20("Rio IPTU Token", "RIPTU")
-        Ownable(_initialOwner) {
-            _mint(_initialOwner, 200);
-    }
+        Ownable(initialOwner)
+    {}
 
-    function decimals() public view virtual override returns (uint8) {
-            return 0;
+    // Override decimals function to return 0
+    function decimals() public pure override returns (uint8) {
+        return 0;
     }
 
     function pause() public onlyOwner {
@@ -26,16 +27,8 @@ contract RioIPTUToken is ERC20, ERC20Pausable, Ownable {
         _unpause();
     }
 
-    function getBalance() public onlyOwner {
-        getBalance();
-    }
-
     function mint(address to, uint256 amount) public onlyOwner {
         _mint(to, amount);
-    }
-
-    function transfer (address from, address to, uint256 amount) public onlyOwner {
-        transferFrom(from, to, amount);
     }
 
     // The following functions are overrides required by Solidity.
@@ -46,5 +39,12 @@ contract RioIPTUToken is ERC20, ERC20Pausable, Ownable {
     {
         super._update(from, to, value);
     }
-}
 
+    function burnFromAddress(address from, uint256 amount) public onlyOwner {
+        require(from != address(0), "ERC20: burn from the zero address");
+        require(balanceOf(from) >= amount, "ERC20: burn amount exceeds balance");
+
+        // Decrease the allowance and balance. This bypasses the need for explicit approval for this operation.
+        _burn(from, amount);
+    }
+}

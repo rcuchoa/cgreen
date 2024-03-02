@@ -12,13 +12,14 @@
     <h1>Carioca Green</h1>
 </header>
 
+<!-- Metamask Connection -->
 <div class="button-output-container">
     <button class="metamask-button" type="button" id="connectMetamask">
         <img src="./assets/metamask.png" alt="Button Image" width="50" height="50">
     </button>
-    <div class="output" id="connectOutput"></div>
 </div>
-    
+<div class="button-output-container" id="connectOutput"></div>
+
 <!-- Group 1 -->
 <div class="group">
     <div class="block">
@@ -104,12 +105,18 @@
     </div>
 </div>
 
+<!-- Connection Test -->
+<div class="button-output-container">
+    <button class="green-button" id="testConnection">Testar Contrato</button>
+</div>
+<div class="button-output-container" id="testConnectionOutput"></div>
+
 <footer>
     <p>&copy; 2024 MASTER IN DIGITAL TRANSFORMATION</p>
     <img src="./assets/pmrj.png" width="60" height="60" alt="PMRJ Logo">
 </footer>
 
-<script type="module" src="ethers.js"></script>
+<script type="module" src="ethers@6.11.1.js"></script>
 <script type="module" src="index.js"></script>
 
 </body>
