@@ -6,11 +6,15 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "./CariocaGreenTreeToken.sol";
 import "./RioIPTUToken.sol";
 
-contract CariocaGreenSC is Ownable {
+contract CariocaGreenSC /* is Ownable */  {
 
     address private contractOwner;                          // Save contract owner
 
+    uint256 public minTransferAmount;
+
+
     uint private creditsPerTree = 0;                        // Store number of credits (RIPTUs) per tree (CGT)
+
 
     address private cariocaGreenTreeTokenAddress;           // Save CGT Smart Contract Address
     address private rioIPTUTokenAddress;                    // Save RIPTU Smart Contract Address
@@ -28,26 +32,34 @@ contract CariocaGreenSC is Ownable {
     event TreeRegistered(address indexed citizen, uint indexed trees, uint indexed credits);   // Event to register a new  tree registration
     event TreeUnregistered(address indexed citizen, uint indexed trees, uint indexed credits); // Event to register credits registration
 
-    constructor(address _initialOwner, uint _creditsPerTree) Ownable(_initialOwner) {
+    constructor(/* address _initialOwner,*/ uint _creditsPerTree) /* Ownable(_initialOwner) */ {
         require(_creditsPerTree > 0, "Total number of credits per Tree must be greater than zero");
 
         contractOwner = msg.sender;
 
         creditsPerTree = _creditsPerTree;
 
-        emit CariocaGreenSCCreated(contractOwner);
-    }
-
-    function createChildContracts() public {
         cariocaGreenTreeToken = new CariocaGreenTreeToken(contractOwner);
-        rioIPTUToken = new RioIPTUToken(contractOwner);
+        rioIPTUToken = new RioIPTUToken(contractOwner,  100);
 
         cariocaGreenTreeTokenAddress = address(cariocaGreenTreeToken);
         rioIPTUTokenAddress = address(rioIPTUToken);
 
+        emit CariocaGreenSCCreated(contractOwner);
         emit CariocaGreenTreeTokenCreated(contractOwner);
         emit RioIPTUTokenCreated(contractOwner);
     }
+
+    // function createChildContracts() public {
+    //     cariocaGreenTreeToken = new CariocaGreenTreeToken(contractOwner);
+    //     rioIPTUToken = new RioIPTUToken(contractOwner);
+
+    //     cariocaGreenTreeTokenAddress = address(cariocaGreenTreeToken);
+    //     rioIPTUTokenAddress = address(rioIPTUToken);
+
+    //     emit CariocaGreenTreeTokenCreated(contractOwner);
+    //     emit RioIPTUTokenCreated(contractOwner);
+    // }
 
     function getCariocaGreenTreeTokenAddress() public view returns (address) {
         return cariocaGreenTreeTokenAddress;

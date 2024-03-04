@@ -9,27 +9,32 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Context.sol";
 
-contract CariocaGreenTreeToken is ERC721, ERC721Enumerable, ERC721Pausable, ERC721Burnable, Ownable {
+contract CariocaGreenTreeToken is ERC721, ERC721Enumerable, ERC721Pausable, ERC721Burnable /*, Ownable */ {
+
+    address public contractOwner;
+
     uint256 private _nextTokenId;
 
     constructor(address initialOwner)
         ERC721("Carioca Green Tree Token", "CGT")
-        Ownable(initialOwner)
-    {}
+        /* Ownable(initialOwner) */
+    {
+        contractOwner = initialOwner;
+    }
 
     function _baseURI() internal pure override returns (string memory) {
         return "https://riodejaneiro.gov.br";
     }
 
-    function pause() public onlyOwner {
+    function pause() public /* onlyOwner */ {
         _pause();
     }
 
-    function unpause() public onlyOwner {
+    function unpause() public /* onlyOwner */ {
         _unpause();
     }
 
-    function safeMint(address to) public onlyOwner {
+    function safeMint(address to) public /* onlyOwner */ {
         uint256 tokenId = _nextTokenId++;
         _safeMint(to, tokenId);
     }

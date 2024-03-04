@@ -3,6 +3,7 @@ import hre from 'hardhat';
 
 const network = hre.network.name;
 const creditsPerPlantedTree = 100;
+const minTransferAmount = 100;
 
 console.log(network);
 
@@ -38,6 +39,10 @@ switch (network) {
     initialOwner = ownerAddresses['sepolia']['initialOwner'];  
     break;
   }
+  case "hardhat": {
+    initialOwner = ownerAddresses['hardhat']['initialOwner'];  
+    break;
+  }
   case "localhost": {
     initialOwner = ownerAddresses['localhost']['initialOwner'];  
     break;
@@ -52,14 +57,14 @@ async function main() {
 
   // Create  Carioca Green Smart Contract
   const ContractFactoryCariocaGreenSC = await ethers.getContractFactory("CariocaGreenSC");
-  const instanceCariocaGreenSC = await ContractFactoryCariocaGreenSC.deploy(initialOwner, creditsPerPlantedTree);
+  const instanceCariocaGreenSC = await ContractFactoryCariocaGreenSC.deploy(/*initialOwner,*/ creditsPerPlantedTree);
   await instanceCariocaGreenSC.waitForDeployment();
   cariocaGreenSCAddress = await instanceCariocaGreenSC.getAddress();
   console.log(`Contract CariocaGreenSC deployed to ${cariocaGreenSCAddress}`);
 
   // Create Rio IPTU Token
   const ContractFactoryRioIPTUToken = await ethers.getContractFactory("RioIPTUToken");
-  const instanceRioIPTUToken = await ContractFactoryRioIPTUToken.deploy(initialOwner);
+  const instanceRioIPTUToken = await ContractFactoryRioIPTUToken.deploy(initialOwner, minTransferAmount);
   await instanceRioIPTUToken.waitForDeployment();
   rioIPTUTokenSCAddress = await instanceRioIPTUToken.getAddress();
   console.log(`Contract RioIPTUToken deployed to ${rioIPTUTokenSCAddress}`);
@@ -94,6 +99,13 @@ async function main() {
       break;
     }
     case "localhost": {
+      addresses['chainID'] = 88888;
+      addresses['ownerAddress'] = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266';  // HardHat Node Account #0
+      addresses['user1Address'] = '0x70997970C51812dc3A010C7d01b50e0d17dc79C8';  // HardHat Node Account #1
+      addresses['user2Address'] = '0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC';  // HardHat Node Account #2
+      break;
+    }
+    case "hardhat": {
       addresses['chainID'] = 88888;
       addresses['ownerAddress'] = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266';  // HardHat Node Account #0
       addresses['user1Address'] = '0x70997970C51812dc3A010C7d01b50e0d17dc79C8';  // HardHat Node Account #1

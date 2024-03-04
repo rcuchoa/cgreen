@@ -190,8 +190,8 @@ export async function initBlockchain() {
         console.log("DEBUG: (3) : connectToDesiredBlockchainNetwork : ", networkName, chainID);
         contract_CariocaGreenSC = await initContractCariocaGreenSC();
         console.log("DEBUG: (4): initContractCariocaGreenSC : ", contract_CariocaGreenSC);
-        await createChildContracts();
-        console.log("DEBUG: (5) : createChildContracts : ");
+        //await createChildContracts();
+        //console.log("DEBUG: (5) : createChildContracts : ");
         await getContractAddresses();
         console.log("DEBUG: (6) : getContractAddresses : ", contract_address_RioIPTUToken, contract_address_CariocaGreenTreeToken);
         contract_RioIPTUToken = await initContractRioIPTUToken();
@@ -291,7 +291,7 @@ export async function registerTree(_address) {
         contract_CariocaGreenSC.registerTree(_address)
             .then(() => {
                 console.log("DEBUG: (3) SUCCESS: registerTree(_address): ");
-                resolve(_result['hash']);
+                resolve("OK");
             })
             .catch(_error => {
                 console.log("DEBUG: (3) ERROR: registerTree(_address): ", _error);
@@ -308,7 +308,7 @@ export async function createChildContracts() {
         contract_CariocaGreenSC.createChildContracts()
             .then( () => {
                 console.log("DEBUG: (3) SUCCESS: createChildContracts(): ");
-                resolve(_result['hash']);
+                resolve("OK");
             })
             .catch(_error => {
                 console.log("DEBUG: (3) ERROR: createChildContracts(): ", _error);
@@ -324,7 +324,7 @@ export async function transferCredits(_to, _amount) {
         contract_CariocaGreenSC.connect(signer).transferCredits(_to, _amount)
             .then( () => {
                 console.log("DEBUG: SUCCESS: transferCredits(_address): ");
-                resolve(_result);
+                resolve("OK");
             })
             .catch(_error => {
                 console.log("DEBUG: ERROR: transferCredits(_address): ", _error);
@@ -332,23 +332,6 @@ export async function transferCredits(_to, _amount) {
             })
         });
 };
-
-// Get number of trees owned by an address
-// export async function getTrees(_address) {
-//     console.log("DEBUG: getTrees(_address): ", _address);
-//     if (window.ethereum) {
-//         try {
-//             await window.ethereum.request({ method: 'eth_requestAccounts' });
-//             const result = await contract_CariocaGreenSC.getTrees(_address);
-//             console.log('DEBUG: SUCCESS: getTrees(_address): ', result);
-//             return result;
-//         } catch (error) {
-//             console.error('DEBUG: ERROR: getTrees(_address): ', error);
-//         }
-//     } else {
-//         console.error('DEBUG: ERROR: getTrees(_address): METAMASK NOT INSTALLED!');
-//     };
-// };
 
 // Get number of trees owned by an address
 export async function getTrees(_address) {
